@@ -1,0 +1,47 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+% Load Thesis Class
+\documentclass{DEIThesis}
+
+\title{Funzionamento della rete satellitare Starlink}
+
+\author{Matteo Galiazzo}
+\studentId{2044941}
+
+% Advisor
+\advisor{Prof. Roberto Corvaja}
+
+% If you are co-advised
+\coadvisor{}
+\coadvisorsUniversity{}
+
+\university{Università di Padova}
+\mastername{Ingegneria informatica}
+\academicYear{2023/2024}
+
+\begin{filecontents*}[overwrite]{\jobname.xmpdata}
+    \Title{Funzionamento della rete satellitare Starlink}
+    \Author{Matteo Galiazzo}
+    \Language{it-IT}
+    \Keywords{Ingegneria informatica\sep LaTeX}
+\end{filecontents*}
+
+% Document
+
+\begin{document}
+    % The front matter (Cover, ToC, Abstract, etc...)
+    \frontmatter
+
+    % The main content
+    \mainmatter
+    
+    \include{chapters/01_introduction}
+    \include{chapters/02_architettura_sistema}
+    % \include{chapters/03_background}
+    % \include{chapters/04_analysis}
+    % \include{chapters/99_conclusions}
+    
+    % Bibliography, appendix, acknowledges, etc...
+    \backmatter
+\end{document}
