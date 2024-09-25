@@ -20,7 +20,8 @@ Attualmente ci sono 6398 satelliti Starlink in orbita \cite{jonathan_mcdowell_st
 Questo segmento è costituito da un numero di satelliti in \ac{LEO}. Si tratta di piccoli satelliti a basso costo che pesano circa 260kg (nella versione 1.0), operano in \ac{Ku} e \ac{Ka} band e hanno durata di vita di 5-7 anni. \cite{techplayon_spacex_2024} Questi satelliti collegano l'utente a Internet.
 
 Poichè esiste un numero enorme di satelliti questi comunicano tra loro attraverso \ac{ISL}.
-% LEGGERE PAPER ISL OTTICO
+
+TODO: AGGIUNGERE PAPER ISL OTTICO
 
 \section{Segmento di terra}
 I segmenti di terra includono diverse facilities che gestiscono la rete e forniscono connettività internet ai satelliti. Questi funzionano anche da Graund Station e sono localizzati strategicamente intorno al mondo per fornire copertura a zone remote e con poca connettività a internet.
@@ -49,6 +50,17 @@ Questo enorme array funziona insieme in quella che è chiamata un'antenna phased
 \end{figure}
 
 Nella figura \ref{fig:aperture-couple-patch-antenna} possiamo vedere un'aperture couple patch antenna, composta di 6 layer, il più dei quali all'interno del PCB.
+I layer più importanti sono:
+\begin{itemize}
+  \item[1] linea di alimentazione.
+  \item[2] piano RF reflective.
+  \item[3] H slot per la polarizzazione.
+  \item[4] isolamento dell'antenna.
+  \item[5] Bottom antenna patch: trasmettitore a 13 GHz.
+  \item[6] Top antenna patch: ricevitore a 11.7 GHz.
+\end{itemize}
+I pezzi esagonali grigio scuro invece sono isolamento elettrico tra i vari layer.
+
 Per semplificare la sua compressione semplifichiamola rimuovendo per il momento alcuni layer per semplificare la sua comprensione, e vediamo i principi base di come si genera un'onda elettromagnetica che si propaga da quest'antenna.
 
 Per iniziare, sul fondo abbiamo una micro linea di trasmissione elettrica che arriva da uno dei piccoli microchip.
@@ -97,11 +109,23 @@ Quindi il campo elettrico e quello magnetico puntano alla direzione opposta.
 
 \subsubsection{Emissione delle onde elettromagnetiche}
 Creando i campi elettromagnetici oscillanti vengono generate onde elettromagnetiche che viaggiano in direzione perpendicolare al campo elettrico e al campo magnetico.
-Dato che i due insiemi di campi vettoriali non sono tutti sullo stesso piano, ma sono curvati, l'onda elettromagnetica che si propaga viaggia verso l'esterno in una forma di guscio che si espande.
+Dato che i due insiemi di campi non sono tutti sullo stesso piano, ma sono curvati, l'onda elettromagnetica che si propaga viaggia verso l'esterno in una forma di guscio che si espande.
 
-L'intensità di questi campi vettoriali è legata direttamente alla tensione che è stata originariamente mandata alla linea di alimentaizone alla base dell'antenna.
+L'intensità di questi campi è legata direttamente alla tensione che è stata originariamente mandata alla linea di alimentaizone alla base dell'antenna.
+Questo significa che se vogliamo rendere questi campi elettromagnetici più intensi basta aumentare la tensione inviata alla linea di alimentazione.
 
-% QUI QUI QUI 10:09 video
+Per ricevere il segnale basta switchare il microchip dell'antenna, chiamato modulo front-end, che si vede in figura \ref{fig:aperture-couple-patch-antenna} da modalità trasmettitore a modalità ricevitore.
+
+TODO: MIGLIORARE SPIEGAZIONE RICEZIONE ONDA ELETTROMAGNETICA
+
+Quando un'onda elettromagnetica dal satellite è diretta verso l'antenna, i campi elettromagnetici del segnale in arrivo influenzano gli elettroni nel patch di rame, generando un flusso di elettroni.
+
+Questo segnale ad alta frequenza ricevuto è inviato alla feedlite dove il modulo di front-end che amplifica il segnale.
+Quindi, queste antenne possono essere usate sia per trasmettere che per ricevere onde elettromagnetiche, ma non allo stesso tempo.
+
+% COMBINAZIONE DI SINGOLE ANTENNE PER AMPLIFICARE IL SEGNALE
+
+
 
 
 
