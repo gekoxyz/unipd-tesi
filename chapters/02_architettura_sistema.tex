@@ -149,6 +149,14 @@ Così, aggiungendo 1280 antenne, possiamo formare un fascio con un'intensità e 
 
 \subsubsection{Beam Steering: direzionare un fascio di onde elettromagnetiche}
 Come menzionato precedentemente dobbiamo direzionare le onde elettromagnetiche per puntare al satellite starlink che viaggia in \ac{LEO} a 27'000 km/h.
-Usare i motori dell'antenna non è abbastanza preciso e aumenterebbe il rischio di rottura dei motori dopo poco tempo.
+Usare i motori dell'antenna non è abbastanza preciso e creerebbe stress inutile sui motori.
+La soluzione è quindi di usare quello che viene chiamato Phased Array Beam Steering.
+
+Torniamo ancora una volta all'esempio delle due antenne.
+Prima stavamo inviando lo stesso segnale alle due antenne, e quindi queste erano in fase l'una con l'altra.
+Per fare beam steering invece si invia il segnale alle antenne shiftato in fase per poterlo angolare.
+Come risultato i tempi dei picchi e delle valli emesse da un'antenna sono differenti dalle altre.
+In questo modo le posizioni delle interferenze costruttive sono angolati verso una certa direzione, con interferenze distruttive da tutte le altre parti.
+Quindi, cambiando continuamente la fase del segnale inviato all'antenna possiamo creare una zona di sweeping % CONTINUA DA SWEEPING
 
 % NUMERO DI SATELLITI, COME AVVIENE COMUNICAZIONE UTENTE-UTENTE E UTENTE-SATELLITE
