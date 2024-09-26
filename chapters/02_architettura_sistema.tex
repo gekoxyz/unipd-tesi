@@ -35,7 +35,8 @@ Il segmento utente comprende l'area in cui le persone utilizzano i servizi inter
 \subsubsection{Struttura generale}
 Aprendo la parabola (versione 1.0 revisione 2) troviamo sul retro una coppia di motori e un cavo ethernet che si collega al router.
 Questi motori non muovono continuamente la parabola per puntare direttamente al satellite con cui comunica; vengono utilizzati solo durante la configurazione iniziale per orientare l'antenna nella direzione generale corretta.
-Aprendo la parabola troviamo una piastra posteriore strutturale in alluminio e, dall'altro lato, una grande scheda a circuiti stampati (PCB). Su un lato ci sono 640 microchip piccoli e 20 microchip più grandi, disposti in un pattern con tracce che si diramano dai microchip più grandi a quelli più piccoli, insieme a chp aggiuntivi, inclusa la CPU principale e il modulo GPS sul bordo del PCB. Sull'altro lato cisono circa 1'400 cerchi di rame con una griglia di quadrati tra i cerchi.
+Aprendo la parabola troviamo una piastra posteriore strutturale in alluminio e, dall'altro lato, una grande scheda a circuiti stampati (PCB).
+Su un lato ci sono 640 microchip piccoli e 20 microchip più grandi, disposti in un pattern con tracce che si diramano dai microchip più grandi a quelli più piccoli, insieme a chp aggiuntivi, inclusa la CPU principale e il modulo GPS sul bordo del PCB. Sull'altro lato cisono circa 1'400 cerchi di rame con una griglia di quadrati tra i cerchi.
 Nel livello successivo c'è uno schema a nido d'ape in gomma con piccoli cerchi di rame intagliati e dietro troviamo un altro schema a nido d'ape e poi la copertura anteriore della parabola.
 Abbiamo quindi 1280 antenne disposte in un pattern esagonale a nido d'ape, con ciascuna pila di cerchi di rame che rappresenta una singola antenna controllata dai microchip sul PCB.
 Questo enorme array funziona insieme in quella che è chiamata un'antenna phased array per inviare e ricevere onde elettromagnetiche che vengono direzionate verso e da un satellite Starlink in orbita a 550km di distanza.
@@ -61,7 +62,7 @@ I layer più importanti sono:
 \end{itemize}
 I pezzi esagonali grigio scuro invece sono isolamento elettrico tra i vari layer.
 
-Per semplificare la sua compressione semplifichiamola rimuovendo per il momento alcuni layer per semplificare la sua comprensione, e vediamo i principi base di come si genera un'onda elettromagnetica che si propaga da quest'antenna.
+Per facilitare la comprensione del suo funzionamento semplifichiamola rimuovendo per il momento alcuni layer per semplificare la sua comprensione, e vediamo i principi base di come si genera un'onda elettromagnetica che si propaga da quest'antenna.
 
 Per iniziare, sul fondo abbiamo una micro linea di trasmissione elettrica che arriva da uno dei piccoli microchip.
 Questa linea di trasmissione è solo un filo di rame che termina sotto la pila dell'antenna.
@@ -124,9 +125,30 @@ Questo segnale ad alta frequenza ricevuto è inviato alla feedlite dove il modul
 Quindi, queste antenne possono essere usate sia per trasmettere che per ricevere onde elettromagnetiche, ma non allo stesso tempo.
 
 % COMBINAZIONE DI SINGOLE ANTENNE PER AMPLIFICARE IL SEGNALE
+% 11:06/28:08
+\subsubsection{Beamforming: come formare un fascio di onde elettromagnetiche che raggiunge lo spazio}
+Le tecnica di combinare la potenza delle 1280 antenne in un array esagonale è chiamato beamforming.
 
+Come prima cerchiamo di semplificare il concetto vedendo cosa succede per due antenne affiancate.
+Come menzionato prima, un'antenna genera un'onda elettromagnetica che si propaga all'esterno a forma di guscio che si espande.
+In ogni singolo punto dello spazio c'è solo un vettore di campo elettrico con un'intensità e una direzione, quindi i vettori di campo elettrico delle due antenne si combinano assieme in tutti i punti nello spazio.
+In alcune aree, i campi elettrici delle antenne puntano nella stessa direzione con picchi sovrapposti, e quindi per interferenza costruttiva si sommano.
+In altri punti invece sono opposti, con un picco e un'avvallamento, e quindi si cancellano per interferenza distruttiva.
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{./res/img/antenna_interference.png}
+  \caption{Creazione di interferenze in un array di antenne Aperture Couple Patch \cite{branch_education_how_2022}}
+  \label{fig:aperture-couple-patch-antenna-interference}
+\end{figure}
 
+Quando aggiungiamo ancora più antenne la zona di interferenza costruttiva diventa ancora più focalizzata rispetto a una singola antenna, in quello che viene chiamato fronte del fascio.
+Così, aggiungendo 1280 antenne, possiamo formare un fascio con un'intensità e una direzionalità tali da raggiungere lo spazio.
 
+% Ora potreste pensare che la forza di un'antenna duplicata 1280 volte dia luogo a una potenza combinata pari a 1280 volte quella di una singola antenna, ma vi sbagliereste. La potenza e la portata effettive del fascio principale di tutte queste antenne combinate sono in realtà più vicine a 3500 volte quelle di una singola antenna.
+
+\subsubsection{Beam Steering: direzionare un fascio di onde elettromagnetiche}
+Come menzionato precedentemente dobbiamo direzionare le onde elettromagnetiche per puntare al satellite starlink che viaggia in \ac{LEO} a 27'000 km/h.
+Usare i motori dell'antenna non è abbastanza preciso e aumenterebbe il rischio di rottura dei motori dopo poco tempo.
 
 % NUMERO DI SATELLITI, COME AVVIENE COMUNICAZIONE UTENTE-UTENTE E UTENTE-SATELLITE
