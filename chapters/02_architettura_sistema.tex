@@ -25,10 +25,10 @@ TODO: AGGIUNGERE PAPER ISL OTTICO
 
 \section{Segmento di terra}
 I segmenti di terra includono diverse facilities che gestiscono la rete e forniscono connettività internet ai satelliti. Questi funzionano anche da Graund Station e sono localizzati strategicamente intorno al mondo per fornire copertura a zone remote e con poca connettività a internet.
-La ground station è connessa all'\ac{ISP} tramite fibra.
+La ground station è connessa all'\ac{ISP} tramite fibra.\cite{branch_education_how_2022}
 
 \section{Segmento utente}
-Il segmento utente comprende l'area in cui le persone utilizzano i servizi internet tramite il kit che viene fornito e che comprende l'antenna per la trasmissione, il cavo di alimentazione, il router (tranne nella versione mini dell'antenna dove il router è integrato all'antenna) e il cavo di rete per connettere l'antenna al router se quest'ultimo è incluso.
+Il segmento utente comprende l'area in cui le persone utilizzano i servizi internet tramite il kit che viene fornito e che comprende l'antenna per la trasmissione, il cavo di alimentazione, il router (tranne nella versione mini dell'antenna dove il router è integrato all'antenna) e il cavo di rete per connettere l'antenna al router se quest'ultimo è incluso.\cite{branch_education_how_2022}
 
 \subsection{Antenna}
 
@@ -39,7 +39,7 @@ Aprendo la parabola troviamo una piastra posteriore strutturale in alluminio e, 
 Su un lato ci sono 640 microchip piccoli e 20 microchip più grandi, disposti in un pattern con tracce che si diramano dai microchip più grandi a quelli più piccoli, insieme a chp aggiuntivi, inclusa la CPU principale e il modulo GPS sul bordo del PCB. Sull'altro lato cisono circa 1'400 cerchi di rame con una griglia di quadrati tra i cerchi.
 Nel livello successivo c'è uno schema a nido d'ape in gomma con piccoli cerchi di rame intagliati e dietro troviamo un altro schema a nido d'ape e poi la copertura anteriore della parabola.
 Abbiamo quindi 1280 antenne disposte in un pattern esagonale a nido d'ape, con ciascuna pila di cerchi di rame che rappresenta una singola antenna controllata dai microchip sul PCB.
-Questo enorme array funziona insieme in quella che è chiamata un'antenna phased array per inviare e ricevere onde elettromagnetiche che vengono direzionate verso e da un satellite Starlink in orbita a 550km di distanza.
+Questo enorme array funziona insieme in quella che è chiamata un'antenna phased array per inviare e ricevere onde elettromagnetiche che vengono direzionate verso e da un satellite Starlink in orbita a 550km di distanza.\cite{branch_education_how_2022}
 
 \subsubsection{Funzionamento dell'antenna Aperture Couple Patch}
 
@@ -60,7 +60,7 @@ I layer più importanti sono:
   \item[5] Bottom antenna patch: trasmettitore a 13 GHz.
   \item[6] Top antenna patch: ricevitore a 11.7 GHz.
 \end{itemize}
-I pezzi esagonali grigio scuro invece sono isolamento elettrico tra i vari layer.
+I pezzi esagonali grigio scuro invece sono isolamento elettrico tra i vari layer.\cite{branch_education_how_2022}
 
 Per facilitare la comprensione del suo funzionamento semplifichiamola rimuovendo per il momento alcuni layer per semplificare la sua comprensione, e vediamo i principi base di come si genera un'onda elettromagnetica che si propaga da quest'antenna.
 
@@ -73,7 +73,7 @@ Con la corrente continua o alternata a bassa frequenza, non succederebbe molto p
 Questo fenomeno avviene perchè quando la tensione è al fondo della sua sinusoide, o al minimo, c'è una concentrazione di elettroni spinti verso l'estremità del filo di alimentazione, creando così una zona di carica negativa che corrisponde alla massima tensione negativa.
 Questa concentrazione di elettroni sulla punta del filo respinge tutti gli elettroni, compresi quelli sulla parte superiore del patch, e di conseguenza questi elettroni vengono spinti verso l'altro lato del patch circolare.
 In questo modo, un lato del patch diventa carico positivamente, mentre l'altro diventa carico negativamente, creando così campi elettrici tra il patch e il filo di alimentazione.
-Tuttavia, quando invertiamo la tensione al filo di rame 42 picosecondi dopo, abbiamo una concentrazione di cariche positive, o una mancanza di elettroni all'estremità del filo, e quindi gli elettroni nel patch fluiscono verso l'altro lato, la tensione nel patch è invertita e anche la direzione dei campi elettrici è invertita.
+Tuttavia, quando invertiamo la tensione al filo di rame 42 picosecondi dopo, abbiamo una concentrazione di cariche positive, o una mancanza di elettroni all'estremità del filo, e quindi gli elettroni nel patch fluiscono verso l'altro lato, la tensione nel patch è invertita e anche la direzione dei campi elettrici è invertita.\cite{branch_education_how_2022}
 
 \begin{figure}[htbp]
   \centering
@@ -93,10 +93,10 @@ Poiché la tensione del filo di alimentazione oscilla con un intervallo di 42 pi
 
 Possiamo vedere in figura \ref{fig:aperture-couple-patch-antenna-fringing-fields} che alcuni di questi vettori di campo elettrico provenienti dal patch sono verticali e, poiché sono uguali e opposti, si annullano.
 Tuttavia, altri campi elettrici sono orizzontali nello stesso piano del patch e sono chiamati campi di frangia.
-Questi campi di frangia sono nella stessa direzione e quindi si sommano l'uno all'altro, dando luogo a un campo elettrico combinato.
+Questi campi di frangia sono nella stessa direzione e quindi si sommano l'uno all'altro, dando luogo a un campo elettrico combinato.\cite{branch_education_how_2022}
 
 Allo stesso tempo, gli elettroni che scorrono da un lato all'altro del disco, che costituiscono una corrente elettrica, generano un campo magnetico con un'intensità e una direzione, o vettore, perpendicolare al vettore del campo elettrico di frangia.
-Di conseguenza, abbiamo un campo elettrico orientato in un senso e un campo magnetico orientato perpendicolarmente, come si può vedere in figura \ref{fig:aperture-couple-patch-antenna-em-field}.
+Di conseguenza, abbiamo un campo elettrico orientato in un senso e un campo magnetico orientato perpendicolarmente, come si può vedere in figura \ref{fig:aperture-couple-patch-antenna-em-field}.\cite{branch_education_how_2022}
 
 \begin{figure}[htbp]
   \centering
@@ -122,7 +122,7 @@ TODO: MIGLIORARE SPIEGAZIONE RICEZIONE ONDA ELETTROMAGNETICA
 Quando un'onda elettromagnetica dal satellite è diretta verso l'antenna, i campi elettromagnetici del segnale in arrivo influenzano gli elettroni nel patch di rame, generando un flusso di elettroni.
 
 Questo segnale ad alta frequenza ricevuto è inviato alla feedlite dove il modulo di front-end che amplifica il segnale.
-Quindi, queste antenne possono essere usate sia per trasmettere che per ricevere onde elettromagnetiche, ma non allo stesso tempo.
+Quindi, queste antenne possono essere usate sia per trasmettere che per ricevere onde elettromagnetiche, ma non allo stesso tempo.\cite{branch_education_how_2022}
 
 % COMBINAZIONE DI SINGOLE ANTENNE PER AMPLIFICARE IL SEGNALE
 % 11:06/28:08
@@ -143,9 +143,10 @@ In altri punti invece sono opposti, con un picco e un'avvallamento, e quindi si 
 \end{figure}
 
 Quando aggiungiamo ancora più antenne la zona di interferenza costruttiva diventa ancora più focalizzata rispetto a una singola antenna, in quello che viene chiamato fronte del fascio.
-Così, aggiungendo 1280 antenne, possiamo formare un fascio con un'intensità e una direzionalità tali da raggiungere lo spazio.
+Così, aggiungendo 1280 antenne, possiamo formare un fascio con un'intensità e una direzionalità tali da raggiungere lo spazio.\cite{branch_education_how_2022}
 
 % Ora potreste pensare che la forza di un'antenna duplicata 1280 volte dia luogo a una potenza combinata pari a 1280 volte quella di una singola antenna, ma vi sbagliereste. La potenza e la portata effettive del fascio principale di tutte queste antenne combinate sono in realtà più vicine a 3500 volte quelle di una singola antenna.
+% LEGGERE MAIL CORVAJA PER MODIFICARE
 
 \subsubsection{Beam Steering: direzionare un fascio di onde elettromagnetiche}
 Come menzionato precedentemente dobbiamo direzionare le onde elettromagnetiche per puntare al satellite starlink che viaggia in \ac{LEO} a 27'000 km/h.
@@ -157,6 +158,18 @@ Prima stavamo inviando lo stesso segnale alle due antenne, e quindi queste erano
 Per fare beam steering invece si invia il segnale alle antenne shiftato in fase per poterlo angolare.
 Come risultato i tempi dei picchi e delle valli emesse da un'antenna sono differenti dalle altre.
 In questo modo le posizioni delle interferenze costruttive sono angolati verso una certa direzione, con interferenze distruttive da tutte le altre parti.
-Quindi, cambiando continuamente la fase del segnale inviato all'antenna possiamo creare una zona di sweeping % CONTINUA DA SWEEPING
+Quindi, cambiando continuamente la fase del segnale inviato all'antenna possiamo creare una zona di sweeping di interferenza costruttiva.
 
-% NUMERO DI SATELLITI, COME AVVIENE COMUNICAZIONE UTENTE-UTENTE E UTENTE-SATELLITE
+Per sapere l'angolo esatto a cui il fascio di onde deve essere indirizzato si usano le coordinate GPS dell'antenna tramite il suo chip GPS, insieme alle posizioni orbitali del satellite Starlink che è conosciuto nel software dell'antenna.
+Il software calcola l'angolo e lo shift di fase richiesto per ciascuna delle antenne.
+I risultati dei calcoli del phase shift sono successivamente inviati ai 20 chip più grandi chiamati beamformers, e ciascun beamformer coordina 32 chip più piccoli chiamati moduli di front end, ciascuno dei quali controlla 2 antenne.
+Ogni pochi microsecondi questi calcoli sono aggionrati e distribuiti in tutto il PCB dell'antenna in modo da orientare perfettamente il segnale verso il satellite.
+Come risultato, il raggio può essere orientato ovunque in un campo visivo di 100 gradi.\cite{branch_education_how_2022}
+
+% FOTO DEL SATELLITE E STRUTTURA
+% ci sono 4 antenne nel satellite. Due sono usate per comunicare con multipli terminali utente e le altre 2 sono usate per comunicare con le ground station per trasmettere il traffico internet a terra
+
+\subsubsection{Invio dei dati in un segnale al satellite}
+Abbiamo visto che l'antenna e il satellite comunicano inviandosi onde sinusoidali di cui è stata modificata l'ampiezza e la fase, cioè viene fatta una modulazione.
+
+% CAPIRE E CONFERMARE TIPO DI MODULAZIONE
