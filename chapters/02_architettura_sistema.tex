@@ -19,9 +19,21 @@ Attualmente ci sono 6398 satelliti Starlink in orbita \cite{jonathan_mcdowell_st
 \section{Segmento spaziale}
 Questo segmento è costituito da un numero di satelliti in \ac{LEO}. Si tratta di piccoli satelliti a basso costo che pesano circa 260kg (nella versione 1.0), operano in \ac{Ku} e \ac{Ka} band e hanno durata di vita di 5-7 anni. \cite{techplayon_spacex_2024} Questi satelliti collegano l'utente a Internet.
 
-Poichè esiste un numero enorme di satelliti questi comunicano tra loro attraverso \ac{ISL}.
+Poichè esiste un numero enorme di satelliti questi comunicano tra loro attraverso \ac{LISL}, cioè una tecnologia ottica nello spazio libero.
+I \ac{LISL} facilitano la trasmissione di dati ad alta velocità tra satelliti in una costellazione, e sono cruiciali per la rete Starlink per andare incontro alla crescente domanda di comunicazioni a bassa latenza ed alta capacità.
+Adottare \ac{LISL} ha dei vantaggi rispetto ai classici collegamenti a radiofrequenza (\ac{RF}).
+\begin{itemize}
+  \item Data rate più alti dato che si usano laser invece di link \ac{RF}.
+  \item Dimensione e peso minore dato che l'utilizzo di laser consente di avere antenne più piccole, risultando in un peso e volume ridotto per i terminali di comunicazione, rendendoli più semplici da integrare nei satelliti.
+  \item Migliore sicurezza dato che l'ampiezza ridotta del fascio laser riduce al minimo le interferenze e migliora la sicurezza rendendo più difficile l'intercettazione del segnale.
+  \item Basso consumo energetico della tecnologia laser.
+\end{itemize}
 
-TODO: AGGIUNGERE PAPER ISL OTTICO
+I satelliti Starlink saranno equipaggiati con quattro terminali \ac{LISL} ciascuno, per consentire comunicazioni con satelliti vicini nello stesso piano orbitale e in piani orbitali adiacenti.
+\begin{itemize}
+  \item \ac{LISL} intra-orbitali:
+  \item \ac{LISL} inter-orbitali:
+\end{itemize}
 
 \section{Segmento di terra}
 I segmenti di terra includono diverse facilities che gestiscono la rete e forniscono connettività internet ai satelliti. Questi funzionano anche da Graund Station e sono localizzati strategicamente intorno al mondo per fornire copertura a zone remote e con poca connettività a internet.
@@ -196,7 +208,10 @@ QPSK     & 0.5   & 0.989  & -0.05 \\ \hline
 
 \paragraph{Link budget}
 La potenza ricevuta al terminale utente è data da:
-$$P_{rx} = P_{tx} + G_{tx} + G_{rx} - L_{tx} - L_{rx} - L_{atm} - L_{p}$$
+\begin{equation}
+P_{rx} = P_{tx} + G_{tx} + G_{rx} - L_{tx} - L_{rx} - L_{atm} - L_{p}
+\label{eq:received-power}
+\end{equation}
 
 In questa equazione, $P_{tx}$ è la potenza del trasmettitore, $G_{tx}$ e $G_{rx}$ sono i guadagni del trasmettitore e del ricevitore, $L_{tx}$ e $L_{rx}$ sono le perdite ai trasmettitori e ricevitori, $L_{atm}$ è la perdita atmosferica, e $L_{p}$ è il path loss introdotto dalla separazione tra il trasmettitore e il ricevitore.
 
@@ -236,7 +251,7 @@ Il tipo di modulazione può cambiare da \ac{BPSK} a 64-\ac{QAM}.
 \hline
 \textbf{Caratteristica} & \textbf{Uplink} & \textbf{Downlink} \\ \hline
 Frequenza (GHz)  & \makecell{14.0-14.5 \\ 27.5-29.1 \\ 29.5-30.0 \\ 47.2-52.4}  & \makecell{10.7-12.7\\17.8-18.6\\18.8-19.3\\37.5-42.5} \\ \hline
-Tipo di modulazione  & \makecell{BPSK,\\M\ac{QAM}} & \makecell{OQPSK,\\MQAM} \\ \hline
+Tipo di modulazione  & \makecell{\ac{BPSK},\\M\ac{QAM}} & \makecell{\ac{OQPSK},\\M\ac{QAM}} \\ \hline
 \end{tabular}
 \caption{Path loss nello spazio aperto in dB ($L_p$) \cite{rozenvasser_estimation_2023}.}
 \label{tab:starlink-frequency-allocation-modulation-type}
@@ -260,11 +275,35 @@ I risultati della modellazione e del calcolo della dipendenza della potenza rice
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\linewidth]{./res/img/link_budget_wo_ecc.png}
-  \caption{Link budget without ECC}
+  \caption{Link budget without \ac{ECC}}
   \label{fig:link-budget-wo-ecc}
 \end{figure}
 
 Dalla figura \ref{fig:link-budget-wo-ecc} si può vedere che il valore più alto della potenza del segnale è 150 dB.
-Finchè il segnale passa attraverso l'atmosfera gradualmente viene attenuato
+Finchè il segnale passa attraverso l'atmosfera gradualmente viene attenuato.
+L'attenuazione avviene anche sui dispositivi ricevitori e trasmettitori.
+Il grado di attenuazione dipende da molti parametri e limita l'altezza dell'orbita del satellite.
 
-% INSERIRE TABELLA
+È consuetudine utilizzare un codice a correzione di errore per aumentare l'immunità al rumore dei sistemi.
+In questo caso, utilizziamo un codice a correzione di errore per aumentare il link budget.
+
+Aggiungiamo CG, guadagno di codifica dovuto al codice a correzione d'errore (\ac{ECC}), all'equazione (\ref{eq:received-power}) che diventa quindi:
+
+\begin{equation}
+  P_{rx} = P_{tx} + G_{tx} + G_{rx} - L_{tx} - L_{rx} - L_{atm} - L_{p} + CG
+\end{equation}
+
+I risultati della modellazione e calcolo della dipendenza della potenza ricevuta al termianle utente all'altezza dell'orbita del satellite per frequenze diverse (dai 10 ai 50 GHz), considerando l'uso di un codice di correzione di errore con un guadagno di codice di 10 dB è mostrato in \ref{fig:link-budget-w-ecc}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{./res/img/link_budget_w_ecc.png}
+  \caption{Link budget without \ac{ECC}}
+  \label{fig:link-budget-w-ecc}
+\end{figure}
+
+Per assicurare la minima probabilità d'errore è necessario avere un margine del \ac{SNR} al ricevitore, che dipende dal tipo di modulazione.
+Dalla figura \ref{fig:link-budget-w-ecc} possiamo vedere che ad alte frequenze l'altezza dell'oribita è limitata a 340 km.
+Il lancio della maggior parte dei satelliti è pianificata a quest'altezza.
+Per frequenze più basse, possono essere utilizzate orbite più alte a 550 km e 1110 km \cite{rozenvasser_estimation_2023}.
+
