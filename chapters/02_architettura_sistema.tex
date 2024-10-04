@@ -176,4 +176,95 @@ Per lavorare con la 64-\ac{QAM} è necessario avere un \ac{SNR} di più di 17dB.
 Al momento questo parametro al terminale UT-1 è tra gli 11 e i 12.5 dB, che corrisponde a una 16-32\ac{APSK} e ha un'efficienza spettrale di 4.5 bit/Hz al massimo.
 Le possibili efficienze spettrali per Starlink sono:
 
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Modulation} & \textbf{Code rate} & \makecell{\textbf{Spectral efficiency}\\ \textbf{bit/s/Hz}} & \makecell{\textbf{Spectral efficiency} \\ \textbf{dB}}\\ \hline
+QPSK     & 0.5   & 0.989  & -0.05 \\ \hline
+8PSK     & 0.75  & 2.228  & 3.48  \\ \hline
+8PSK     & 0.833 & 2.479  & 3.94  \\ \hline
+16APSK   & 0.666 & 2.637  & 4.21  \\ \hline
+16APSK   & 0.75  & 2.967  & 4.72  \\ \hline
+32APSK   & 0.9   & 4.453  & 6.49  \\ \hline
+64QAM    & 0.772 & 4.5234 & 6.55  \\ \hline
+64QAM    & 0.873 & 5.1152 & 7.09  \\ \hline
+64QAM    & 0.948 & 5.5547 & 7.45  \\ \hline
+\end{tabular}
+\caption{Efficienza spettrale di Starlink \cite{rozenvasser_estimation_2023}.}
+\end{table}
+
+\paragraph{Link budget}
+La potenza ricevuta al terminale utente è data da:
+$$P_{rx} = P_{tx} + G_{tx} + G_{rx} - L_{tx} - L_{rx} - L_{atm} - L_{p}$$
+
+In questa equazione, $P_{tx}$ è la potenza del trasmettitore, $G_{tx}$ e $G_{rx}$ sono i guadagni del trasmettitore e del ricevitore, $L_{tx}$ e $L_{rx}$ sono le perdite ai trasmettitori e ricevitori, $L_{atm}$ è la perdita atmosferica, e $L_{p}$ è il path loss introdotto dalla separazione tra il trasmettitore e il ricevitore.
+
+$P_{tx}$ è la potenza del trasmettitore ed è dipendente dall'allocazione dinamica delle risorse $\eta_{a}$ e massa del satellite $m$.
+
+Il guadagno del trasmettitore $G_{tx}$ è dipendente dalla tecnologia dell'antenna (il diametro $d$ e la lunghezza d'onda $\lambda$):
+\begin{itemize}
+  \item Parabolica: $G_{tx} = 20 * \log_{10} (\frac{\eta_{a} \pi d}{\lambda})$
+  \item Phased Array: $G_{tx} = 20 * \log_{10} (\frac{4 \eta_{a} \pi \sqrt[3]{m^2}}{\lambda})$
+\end{itemize}
+
+Il guadagno del ricevitore sul rumore $G_{rx}$ basato sul tipo del terminale utente:
+\begin{itemize}
+  \item Parabolica: $G_{rx} = 5.24 dB$
+  \item Phased Array: $G_{rx} = 10.8 dB$
+\end{itemize}
+
+La perdita atmosferica $L_{atm}$ è dipendente dalla banda di frequenza e pressione atmosferica $P_{atm}$.
+Per la Ku/Ka-band $L_{atm} = 0.97 dB/km$ in media.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{./res/img/atmospheric_losses_simulation.png}
+  \caption{Simulazione delle perdite atmosferiche}
+  \label{fig:atmospheric-losses-simulation}
+\end{figure}
+
+Osserviamo in figura \ref{fig:atmospheric-losses-simulation} un picco del parametro $L_{atm}$ a 60 GHz.
+Per ridurre l'influenza delle perdite atmosferiche è preferibile usare i range di frequenza fino a 53 GHz, che corrisponde al piano di frequenze proposto da SpaceX (tabella \ref{tab:starlink-frequency-allocation-modulation-type})
+Per la trasmissione in uplink si usano le frequenze 14-52.4 GHz e per la trasmissione in downlink le frequenze 10.7-42.5 GHz.
+Nella tabella \ref{tab:starlink-frequency-allocation-modulation-type} possiamo anche vedere i tipi di modulazione.
+Il tipo di modulazione può cambiare da \ac{BPSK} a 64-\ac{QAM}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Caratteristica} & \textbf{Uplink} & \textbf{Downlink} \\ \hline
+Frequenza (GHz)  & \makecell{14.0-14.5 \\ 27.5-29.1 \\ 29.5-30.0 \\ 47.2-52.4}  & \makecell{10.7-12.7\\17.8-18.6\\18.8-19.3\\37.5-42.5} \\ \hline
+Tipo di modulazione  & \makecell{BPSK,\\M\ac{QAM}} & \makecell{OQPSK,\\MQAM} \\ \hline
+\end{tabular}
+\caption{Path loss nello spazio aperto in dB ($L_p$) \cite{rozenvasser_estimation_2023}.}
+\label{tab:starlink-frequency-allocation-modulation-type}
+\end{table}
+
+$L_p = 20 * \log_{10} (\frac{4 \pi d}{\lambda})$
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{./res/img/free_space_path_loss_atm_loss.png}
+  \caption{Path loss nello spazio libero e perdita atmosferica}
+  \label{fig:free-space-path-loss-atm-loss}
+\end{figure}
+
+Il path loss nello spazio libero è il contributore principale alla perdita di potenza come si vede in figura \ref{fig:free-space-path-loss-atm-loss}.
+Alle altitudini calcolate per i satelliti Starlink, questo valore è di 160-175 dB.
+La perdita totale dal path loss nello spazio libero e le perdite atmosferiche sono 165-185 dB.
+
+I risultati della modellazione e del calcolo della dipendenza della potenza ricevuta dal terminale utente dall'altezza dell'orbita del satellite per varie frequenze (da 10 a 50 GHz) sono illustrati nella figura \ref{fig:link-budget-wo-ecc}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{./res/img/link_budget_wo_ecc.png}
+  \caption{Link budget without ECC}
+  \label{fig:link-budget-wo-ecc}
+\end{figure}
+
+Dalla figura \ref{fig:link-budget-wo-ecc} si può vedere che il valore più alto della potenza del segnale è 150 dB.
+Finchè il segnale passa attraverso l'atmosfera gradualmente viene attenuato
+
 % INSERIRE TABELLA
