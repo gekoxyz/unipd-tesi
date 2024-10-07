@@ -9,7 +9,7 @@ La parabola Starlink, invece, invia e riceve dati Internet da un satellite starl
 I fasci tra la parabola Starlink e il satellite deovno essere concentrati in fasci potenti e stretti, continuamente orientati per puntare l'uno verso l'altro \cite{branch_education_how_2022}.
 Attualmente ci sono 6398 satelliti Starlink in orbita \cite{jonathan_mcdowell_starlink_nodate}.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=0.9\linewidth]{./res/img/starlink-system-architecture.png}
   \caption{Architettura di sistema \cite{techplayon_spacex_2024}}
@@ -18,6 +18,24 @@ Attualmente ci sono 6398 satelliti Starlink in orbita \cite{jonathan_mcdowell_st
 
 \section{Segmento spaziale}
 Questo segmento è costituito da un numero di satelliti in \ac{LEO}. Si tratta di piccoli satelliti a basso costo che pesano circa 260kg (nella versione 1.0), operano in \ac{Ku} e \ac{Ka} band e hanno durata di vita di 5-7 anni. \cite{techplayon_spacex_2024} Questi satelliti collegano l'utente a Internet.
+
+% FOTO DEL SATELLITE E STRUTTURA
+% ci sono 4 antenne nel satellite. Due sono usate per comunicare con multipli terminali utente e le altre 2 sono usate per comunicare con le ground station per trasmettere il traffico internet a terra
+
+\subsection{Capacità di un satellite}
+
+Grazie ad informazioni pubblicamente disponibili sappiamo che ciascun satellite ha 4 antenne, due per le comunicazioni con le ground station e 2 le altre 2 per le comunicazioni con multipli terminali utente \cite{branch_education_how_2022}.
+Ogni antenna è in grado di proiettare otto fasci in due polarizzazioni (RHCP/LHCP) per un totale di 48 fasci.
+La larghezza di banda disponibile per Starlinik in \ac{Ku}-band è di 8 canali da 250 MHz in downlink (per un totale di 2GHz) e 8 canali da 62.5 MHz in uplink (per un totale di 500 MHz)
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\linewidth]{./res/img/starlink_satellite_back.png}
+  \caption{Fondo di un satellite Starlink \cite{mike_puchol_modeling_2022}}
+  \label{fig:starlink-satellite}
+\end{figure}
+
+\subsection{Laser Inter Satellite Link}
 
 Poichè esiste un numero enorme di satelliti questi comunicano tra loro attraverso \ac{LISL}, cioè una tecnologia ottica nello spazio libero.
 I \ac{LISL} facilitano la trasmissione di dati ad alta velocità tra satelliti in una costellazione, e sono cruiciali per la rete Starlink per andare incontro alla crescente domanda di comunicazioni a bassa latenza ed alta capacità.
@@ -29,15 +47,45 @@ Adottare \ac{LISL} ha dei vantaggi rispetto ai classici collegamenti a radiofreq
   \item Basso consumo energetico della tecnologia laser.
 \end{itemize}
 
-I satelliti Starlink saranno equipaggiati con quattro terminali \ac{LISL} ciascuno, per consentire comunicazioni con satelliti vicini nello stesso piano orbitale e in piani orbitali adiacenti.
+I satelliti Starlink saranno equipaggiati con quattro terminali \ac{LISL} ciascuno, per consentire comunicazioni con satelliti vicini nello stesso piano orbitale e in piani orbitali adiacenti \cite{chaudhry_laser_2021}.
 \begin{itemize}
-  \item \ac{LISL} intra-orbitali:
-  \item \ac{LISL} inter-orbitali:
+  \item \ac{LISL} intra-orbitali: per i collegamenti tra satelliti sullo stesso piano orbitale. Sono link permanenti dato che i satelliti si muovono tutti alla stessa velocità.
+  \item \ac{LISL} inter-orbitali: per i collegamenti tra satelliti in piani orbitali diversi.
+  Questi si dividono a loro volta in:
+  \begin{itemize}
+    \item \ac{LISL} adiacenti: per i collegamenti tra satelliti in piani orbitali adiacenti. Questi collegamenti sono tipicamente permanenti ma più difficili da stabilire dato a lievi differenze nelle velocità relative dei satelliti.
+    \item \ac{LISL} vicini: per i collegamenti tra satelliti in piani orbitali vicini ma non adiacenti. Questi sono simili nelle caratteristiche ai \ac{LISL} in piani orbitali adiacenti.
+    \item \ac{LISL} incrociati: per i collegmanti tra  satelliti in piani orbitali che si incrociano. Questi collegamenti sono temporanei a causa delle elevate velocità relative dei satelliti e pongono sfide tecniche significative.
+  \end{itemize}
 \end{itemize}
 
+Per ora la sfida principale rimane quella dei tempi di setup, dato che per stabilire un collegamento è richiesto da qualche secondo fino a decine di secondi \cite{chaudhry_laser_2021}.
+
 \section{Segmento di terra}
-I segmenti di terra includono diverse facilities che gestiscono la rete e forniscono connettività internet ai satelliti. Questi funzionano anche da Graund Station e sono localizzati strategicamente intorno al mondo per fornire copertura a zone remote e con poca connettività a internet.
+I segmenti di terra includono diverse facilities che gestiscono la rete e forniscono connettività internet ai satelliti. Questi funzionano anche da Ground Station e sono localizzati strategicamente intorno al mondo per fornire copertura a zone remote e con poca connettività a internet.
 La ground station è connessa all'\ac{ISP} tramite fibra.\cite{branch_education_how_2022}
+
+I satelliti passano il traffico verso un gateway utilizzando due antenne Phased Array in \ac{Ka}-band. Ogni gateway dispone in genere di nove antenne, in configurazione 3x3, 4x5 oppure 1x9 \cite{mike_puchol_modeling_2022}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\linewidth]{./res/img/starlink_gateway.png}
+  \caption{Configurazione 3x3 in Turchia \cite{mike_puchol_modeling_2022}}
+  \label{fig:starlink-gateway}
+\end{figure}
+
+Solitamente otto antenne sono funzionanti, e una è tenuta come scorta.
+Un gateway può quindi osservare completamente 4 satelliti \cite{mike_puchol_modeling_2022}.
+
+Le due antenne paraboliche \ac{Ka} band combinate forniscono un throughput di circa 20 Gbps quando connesse a un gateway.
+Ciascun antenna di un gateway ha un massimo di 4x500 MHz canali (2 GHz in totale) in uplink, e 5x250 MHz canali (1.25 GHz in totale) in downlink.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\linewidth]{./res/img/starlink_gateway_near.png}
+  \caption{Una tipica antenna di gateway \cite{mike_puchol_modeling_2022}}
+  \label{fig:starlink-gateway-near}
+\end{figure}
 
 \section{Segmento utente}
 Il segmento utente comprende l'area in cui le persone utilizzano i servizi internet tramite il kit che viene fornito e che comprende l'antenna per la trasmissione, il cavo di alimentazione, il router (tranne nella versione mini dell'antenna dove il router è integrato all'antenna) e il cavo di rete per connettere l'antenna al router se quest'ultimo è incluso.\cite{branch_education_how_2022}
@@ -177,9 +225,6 @@ Il software calcola l'angolo e lo shift di fase richiesto per ciascuna delle ant
 I risultati dei calcoli del phase shift sono successivamente inviati ai 20 chip più grandi chiamati beamformers, e ciascun beamformer coordina 32 chip più piccoli chiamati moduli di front end, ciascuno dei quali controlla 2 antenne.
 Ogni pochi microsecondi questi calcoli sono aggionrati e distribuiti in tutto il PCB dell'antenna in modo da orientare perfettamente il segnale verso il satellite.
 Come risultato, il raggio può essere orientato ovunque in un campo visivo di 100 gradi.\cite{branch_education_how_2022}
-
-% FOTO DEL SATELLITE E STRUTTURA
-% ci sono 4 antenne nel satellite. Due sono usate per comunicare con multipli terminali utente e le altre 2 sono usate per comunicare con le ground station per trasmettere il traffico internet a terra
 
 \subsubsection{Invio dei dati in un segnale al satellite}
 La capacità di un satellite Starlink sarà di 20 Gbit/s quando opererà in due polarizzazioni con modulazione 64-\ac{QAM}.
