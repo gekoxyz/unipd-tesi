@@ -3,10 +3,10 @@
 \chapter{Architettura del sistema}
 
 Chiariamo come prima cosa la differenza tra un antenna per la televisione satellitare e un'antenna Starlink.
-Le parabole TV utilizzano un riflettitore parabolico per focalizzare le onde elettromagnetiche che costituiscono i segnali televisivi inviati dai satelliti di trasmissione in orbita attorno alla terra e un'altitudine di 35'000 km.
+Le parabole TV utilizzano un riflettitore parabolico per focalizzare le onde elettromagnetiche che costituiscono i segnali televisivi inviati dai satelliti di trasmissione in orbita attorno alla terra e un'altitudine di 35000 km.
 Le parabole TV ricevono solo segnali televisivi dallo spazio, non possono inviare dati.
-La parabola Starlink, invece, invia e riceve dati Internet da un satellite starlink in orbita a 550km di distanza.
-I fasci tra la parabola Starlink e il satellite deovno essere concentrati in fasci potenti e stretti, continuamente orientati per puntare l'uno verso l'altro \cite{branch_education_how_2022}.
+La parabola Starlink, invece, invia e riceve dati Internet da un satellite Starlink in orbita a 550 km di distanza.
+I collegamenti tra la parabola Starlink e il satellite devono essere concentrati in collegamenti potenti e stretti, continuamente orientati per massimizzare il puntamento utente-satellite \cite{branch_education_how_2022}.
 Attualmente ci sono 6398 satelliti Starlink in orbita \cite{jonathan_mcdowell_starlink_nodate}.
 
 \begin{figure}[htbp]
@@ -17,14 +17,11 @@ Attualmente ci sono 6398 satelliti Starlink in orbita \cite{jonathan_mcdowell_st
 \end{figure}
 
 \section{Segmento spaziale}
-Questo segmento è costituito da un numero di satelliti in \ac{LEO}. Si tratta di piccoli satelliti a basso costo che pesano circa 260kg (nella versione 1.0), operano in \ac{Ku} e \ac{Ka} band e hanno durata di vita di 5-7 anni. \cite{techplayon_spacex_2024} Questi satelliti collegano l'utente a Internet.
-
-% FOTO DEL SATELLITE E STRUTTURA
-% ci sono 4 antenne nel satellite. Due sono usate per comunicare con multipli terminali utente e le altre 2 sono usate per comunicare con le ground station per trasmettere il traffico internet a terra
+Questo segmento è costituito da un numero di satelliti in \ac{LEO}. Si tratta di piccoli satelliti a basso costo che pesano circa 260kg (nella versione 1.0), operano nella banda \ac{Ku} e \ac{Ka} e hanno durata di vita di 5-7 anni \cite{techplayon_spacex_2024}. Questi satelliti collegano l'utente a Internet.
 
 \subsection{Capacità di un satellite}
 
-Grazie ad informazioni pubblicamente disponibili sappiamo che ciascun satellite ha 4 antenne, due per le comunicazioni con le ground station e 2 le altre 2 per le comunicazioni con multipli terminali utente \cite{branch_education_how_2022}.
+Grazie ad informazioni pubblicamente disponibili sappiamo che ciascun satellite ha 4 antenne, due per le comunicazioni con le stazioni terrestri e le altre due per le comunicazioni con un certo numero di terminali utente \cite{branch_education_how_2022}.
 Ogni antenna è in grado di proiettare otto fasci in due polarizzazioni (RHCP/LHCP) per un totale di 48 fasci.
 La larghezza di banda disponibile per Starlinik in \ac{Ku}-band è di 8 canali da 250 MHz in downlink (per un totale di 2GHz) e 8 canali da 62.5 MHz in uplink (per un totale di 500 MHz)
 
@@ -35,35 +32,61 @@ La larghezza di banda disponibile per Starlinik in \ac{Ku}-band è di 8 canali d
   \label{fig:starlink-satellite}
 \end{figure}
 
+\subsubsection{Vincoli e limitazioni}
+Ci sono alcune limitazioni, imposte dai regolatori, che riducono i livelli di servizio che il sistema Starlink può formire.
+
+\paragraph{Riutilizzo di frequenze e fasci di co-frequenza a spot}
+Qualsiasi satellite che emette energia tramite radiofrequenza verso la terra deve essere conforme con i limiti di potenza ricevuta a terra, misurati come Equivalent Power Flux Density (EPFD), stabiliti principalmente dall'\ac{ITU}.
+La potenza dei fasci spot le cui impronte si sovrappongono e condividono la stessa frequenza è addittiva, quindi, per rispettare i limiti, la potenza di trasmissione di ciascun fascio deve essere ridotta.
+
+In alcune aree, lo spettro \ac{Ka}-band disponibile per i gateway è ridotto alla metà, a causa dell'uso prioritario da parte di altri licenziatari. Ciò dimezza effettivamente la capaciità di troasmissione che ciascuno di questi gateway può fornire ai satelliti connessi \cite{mike_puchol_modeling_2022}
+
 \subsection{Laser Inter Satellite Link}
 
-Poichè esiste un numero enorme di satelliti questi comunicano tra loro attraverso \ac{LISL}, cioè una tecnologia ottica nello spazio libero.
-I \ac{LISL} facilitano la trasmissione di dati ad alta velocità tra satelliti in una costellazione, e sono cruiciali per la rete Starlink per andare incontro alla crescente domanda di comunicazioni a bassa latenza ed alta capacità.
+Una recente aggiunta tecnologica per i satelliti Starlink, iniziando dalla versione 1.5 nel giugno 2021, è stata quella dei Laser Inter Satellite Links \ac{LISL}.
+Ciascun satellite ha 3 terminali per la comunicazione, come mostrato in figura \ref{fig:starlink-ISL} \cite{mike_puchol_modeling_2022} \cite{chaudhry_laser_2021}.
+Ci sono due tipi di \ac{LISL}
+\begin{itemize}
+  \item \ac{LISL} intra-orbitali: per i collegamenti tra satelliti sullo stesso piano orbitale. Sono link permanenti dato che i satelliti si muovono tutti alla stessa velocità.
+  \item \ac{LISL} inter-orbitali: per i collegamenti tra satelliti in piani orbitali diversi.
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\linewidth]{./res/img/LISL_scheme.png}
+  \caption{Schema dell'\ac{ISL} \cite{mike_puchol_modeling_2022}}
+  \label{fig:starlink-ISL}
+\end{figure}
+
+In questo scenario, un satellite è connesso a un gateway.
+Gli altri satelliti non hanno connettività diretta al gateway, ma usano \ac{ISL} nello stesso piano e in piano incrociato per dirigere il traffico, e sono quindi in grado di servire terminali utenti che non avrebbero altrimenti copertura.
+Starlink ha inserito un'immagine di come sono fatti i terminali \ac{ISL}, che si può vedere in figura \ref{fig:starlink-terminal}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\linewidth]{./res/img/LISL_terminal.png}
+  \caption{Terminale \ac{ISL} in un satellite \cite{mike_puchol_modeling_2022}}
+  \label{fig:starlink-terminal}
+\end{figure}
+
+I \ac{LISL} facilitano la trasmissione di dati ad alta velocità tra satelliti in una costellazione, e sono cruciali per la rete Starlink per andare incontro alla crescente domanda di comunicazioni a bassa latenza ed alta capacità.
 Adottare \ac{LISL} ha dei vantaggi rispetto ai classici collegamenti a radiofrequenza (\ac{RF}).
 \begin{itemize}
   \item Data rate più alti dato che si usano laser invece di link \ac{RF}.
   \item Dimensione e peso minore dato che l'utilizzo di laser consente di avere antenne più piccole, risultando in un peso e volume ridotto per i terminali di comunicazione, rendendoli più semplici da integrare nei satelliti.
   \item Migliore sicurezza dato che l'ampiezza ridotta del fascio laser riduce al minimo le interferenze e migliora la sicurezza rendendo più difficile l'intercettazione del segnale.
-  \item Basso consumo energetico della tecnologia laser.
+  \item Basso consumo energetico della tecnologia ottica.
 \end{itemize}
+\cite{chaudhry_laser_2021}.
 
-I satelliti Starlink saranno equipaggiati con quattro terminali \ac{LISL} ciascuno, per consentire comunicazioni con satelliti vicini nello stesso piano orbitale e in piani orbitali adiacenti \cite{chaudhry_laser_2021}.
-\begin{itemize}
-  \item \ac{LISL} intra-orbitali: per i collegamenti tra satelliti sullo stesso piano orbitale. Sono link permanenti dato che i satelliti si muovono tutti alla stessa velocità.
-  \item \ac{LISL} inter-orbitali: per i collegamenti tra satelliti in piani orbitali diversi.
-  Questi si dividono a loro volta in:
-  \begin{itemize}
-    \item \ac{LISL} adiacenti: per i collegamenti tra satelliti in piani orbitali adiacenti. Questi collegamenti sono tipicamente permanenti ma più difficili da stabilire dato a lievi differenze nelle velocità relative dei satelliti.
-    \item \ac{LISL} vicini: per i collegamenti tra satelliti in piani orbitali vicini ma non adiacenti. Questi sono simili nelle caratteristiche ai \ac{LISL} in piani orbitali adiacenti.
-    \item \ac{LISL} incrociati: per i collegmanti tra  satelliti in piani orbitali che si incrociano. Questi collegamenti sono temporanei a causa delle elevate velocità relative dei satelliti e pongono sfide tecniche significative.
-  \end{itemize}
-\end{itemize}
+Bisogna però ricordare che ci sono anche degli svantaggi.
+Infatti, se un singolo piano orbitale con 20 satelliti condivide un gateway, ciascun satellite avrà un capacità bilanciata del $5\%$ di quella di un satellite indipendente.
 
 Per ora la sfida principale rimane quella dei tempi di setup, dato che per stabilire un collegamento è richiesto da qualche secondo fino a decine di secondi \cite{chaudhry_laser_2021}.
 
 \section{Segmento di terra}
 I segmenti di terra includono diverse facilities che gestiscono la rete e forniscono connettività internet ai satelliti. Questi funzionano anche da Ground Station e sono localizzati strategicamente intorno al mondo per fornire copertura a zone remote e con poca connettività a internet.
-La ground station è connessa all'\ac{ISP} tramite fibra.\cite{branch_education_how_2022}
+La ground station è connessa all'\ac{ISP} tramite fibra \cite{branch_education_how_2022}.
 
 I satelliti passano il traffico verso un gateway utilizzando due antenne Phased Array in \ac{Ka}-band. Ogni gateway dispone in genere di nove antenne, in configurazione 3x3, 4x5 oppure 1x9 \cite{mike_puchol_modeling_2022}.
 
@@ -88,7 +111,7 @@ Ciascun antenna di un gateway ha un massimo di 4x500 MHz canali (2 GHz in totale
 \end{figure}
 
 \section{Segmento utente}
-Il segmento utente comprende l'area in cui le persone utilizzano i servizi internet tramite il kit che viene fornito e che comprende l'antenna per la trasmissione, il cavo di alimentazione, il router (tranne nella versione mini dell'antenna dove il router è integrato all'antenna) e il cavo di rete per connettere l'antenna al router se quest'ultimo è incluso.\cite{branch_education_how_2022}
+Il segmento utente comprende l'area in cui le persone utilizzano i servizi di ricezione Internet tramite il kit che viene fornito e che comprende l'antenna per la trasmissione, il cavo di alimentazione, il router (tranne nella versione mini dell'antenna dove il router è integrato all'antenna) e il cavo di rete per connettere l'antenna al router se quest'ultimo è incluso \cite{branch_education_how_2022}.
 
 \subsection{Antenna}
 
@@ -113,27 +136,27 @@ Questo enorme array funziona insieme in quella che è chiamata un'antenna phased
 Nella figura \ref{fig:aperture-couple-patch-antenna} possiamo vedere un'aperture couple patch antenna, composta di 6 layer, il più dei quali all'interno del PCB.
 I layer più importanti sono:
 \begin{itemize}
-  \item[1] linea di alimentazione.
-  \item[2] piano RF reflective.
-  \item[3] H slot per la polarizzazione.
-  \item[4] isolamento dell'antenna.
-  \item[5] Bottom antenna patch: trasmettitore a 13 GHz.
-  \item[6] Top antenna patch: ricevitore a 11.7 GHz.
+  \item[1.] linea di alimentazione.
+  \item[2.] piano RF reflective.
+  \item[3.] H slot per la polarizzazione.
+  \item[4.] isolamento dell'antenna.
+  \item[5.] Bottom antenna patch: trasmettitore a 13 GHz.
+  \item[6.] Top antenna patch: ricevitore a 11.7 GHz.
 \end{itemize}
-I pezzi esagonali grigio scuro invece sono isolamento elettrico tra i vari layer.\cite{branch_education_how_2022}
+I pezzi esagonali grigio scuro invece sono isolamento elettrico tra i vari layer \cite{branch_education_how_2022}.
 
-Per facilitare la comprensione del suo funzionamento semplifichiamola rimuovendo per il momento alcuni layer per semplificare la sua comprensione, e vediamo i principi base di come si genera un'onda elettromagnetica che si propaga da quest'antenna.
+Per facilitare la comprensione del suo funzionamento semplifichiamola rimuovendo per il momento alcuni layer, e vediamo i principi base di come si genera un'onda elettromagnetica che si propaga da quest'antenna.
 
 Per iniziare, sul fondo abbiamo una micro linea di trasmissione elettrica che arriva da uno dei piccoli microchip.
 Questa linea di trasmissione è solo un filo di rame che termina sotto la pila dell'antenna.
-Mandiamo una tensione sinusodiale alla frequenza di 12 GHz al filo di alimentazione, che vuol dire che il segnale passa da positivo a negativo ogni 83 pico secondi.
+Mandiamo una tensione sinusodiale alla frequenza di 12 GHz al filo di alimentazione, quindi con un periodo di 83 pico secondi.
 Al di sopra del filo di rame di alimentazione abbiamo un cerchio di rame con intagli chiamato patch d'antenna.
 
 Con la corrente continua o alternata a bassa frequenza, non succederebbe molto perchè il patch è isolato, ma con un segnale ad alta frequenza la potenza inviata al filo di alimentazione viene accoppiata o inviata al patch.
 Questo fenomeno avviene perchè quando la tensione è al fondo della sua sinusoide, o al minimo, c'è una concentrazione di elettroni spinti verso l'estremità del filo di alimentazione, creando così una zona di carica negativa che corrisponde alla massima tensione negativa.
 Questa concentrazione di elettroni sulla punta del filo respinge tutti gli elettroni, compresi quelli sulla parte superiore del patch, e di conseguenza questi elettroni vengono spinti verso l'altro lato del patch circolare.
 In questo modo, un lato del patch diventa carico positivamente, mentre l'altro diventa carico negativamente, creando così campi elettrici tra il patch e il filo di alimentazione.
-Tuttavia, quando invertiamo la tensione al filo di rame 42 picosecondi dopo, abbiamo una concentrazione di cariche positive, o una mancanza di elettroni all'estremità del filo, e quindi gli elettroni nel patch fluiscono verso l'altro lato, la tensione nel patch è invertita e anche la direzione dei campi elettrici è invertita.\cite{branch_education_how_2022}
+Tuttavia, quando invertiamo la tensione al filo di rame 42 picosecondi dopo, abbiamo una concentrazione di cariche positive, o una mancanza di elettroni all'estremità del filo, e quindi gli elettroni nel patch fluiscono verso l'altro lato, la tensione nel patch è invertita e anche la direzione dei campi elettrici è invertita \cite{branch_education_how_2022}.
 
 \begin{figure}[htbp]
   \centering
@@ -153,10 +176,10 @@ Poiché la tensione del filo di alimentazione oscilla con un intervallo di 42 pi
 
 Possiamo vedere in figura \ref{fig:aperture-couple-patch-antenna-fringing-fields} che alcuni di questi vettori di campo elettrico provenienti dal patch sono verticali e, poiché sono uguali e opposti, si annullano.
 Tuttavia, altri campi elettrici sono orizzontali nello stesso piano del patch e sono chiamati campi di frangia.
-Questi campi di frangia sono nella stessa direzione e quindi si sommano l'uno all'altro, dando luogo a un campo elettrico combinato.\cite{branch_education_how_2022}
+Questi campi di frangia sono nella stessa direzione e quindi si sommano l'uno all'altro, dando luogo a un campo elettrico combinato \cite{branch_education_how_2022}.
 
 Allo stesso tempo, gli elettroni che scorrono da un lato all'altro del disco, che costituiscono una corrente elettrica, generano un campo magnetico con un'intensità e una direzione, o vettore, perpendicolare al vettore del campo elettrico di frangia.
-Di conseguenza, abbiamo un campo elettrico orientato in un senso e un campo magnetico orientato perpendicolarmente, come si può vedere in figura \ref{fig:aperture-couple-patch-antenna-em-field}.\cite{branch_education_how_2022}
+Di conseguenza, abbiamo un campo elettrico orientato in un senso e un campo magnetico orientato perpendicolarmente, come si può vedere in figura \ref{fig:aperture-couple-patch-antenna-em-field} \cite{branch_education_how_2022}.
 
 \begin{figure}[htbp]
   \centering
@@ -182,10 +205,8 @@ TODO: MIGLIORARE SPIEGAZIONE RICEZIONE ONDA ELETTROMAGNETICA
 Quando un'onda elettromagnetica dal satellite è diretta verso l'antenna, i campi elettromagnetici del segnale in arrivo influenzano gli elettroni nel patch di rame, generando un flusso di elettroni.
 
 Questo segnale ad alta frequenza ricevuto è inviato alla feedlite dove il modulo di front-end che amplifica il segnale.
-Quindi, queste antenne possono essere usate sia per trasmettere che per ricevere onde elettromagnetiche, ma non allo stesso tempo.\cite{branch_education_how_2022}
+Quindi, queste antenne possono essere usate sia per trasmettere che per ricevere onde elettromagnetiche, ma non allo stesso tempo \cite{branch_education_how_2022}.
 
-% COMBINAZIONE DI SINGOLE ANTENNE PER AMPLIFICARE IL SEGNALE
-% 11:06/28:08
 \subsubsection{Beamforming: come formare un fascio di onde elettromagnetiche che raggiunge lo spazio}
 Le tecnica di combinare la potenza delle 1280 antenne in un array esagonale è chiamato beamforming.
 
@@ -209,13 +230,13 @@ Così, aggiungendo 1280 antenne, possiamo formare un fascio con un'intensità e 
 % LEGGERE MAIL CORVAJA PER MODIFICARE
 
 \subsubsection{Beam Steering: direzionare un fascio di onde elettromagnetiche}
-Come menzionato precedentemente dobbiamo direzionare le onde elettromagnetiche per puntare al satellite starlink che viaggia in \ac{LEO} a 27'000 km/h.
+Come menzionato precedentemente dobbiamo direzionare le onde elettromagnetiche per puntare al satellite starlink che viaggia in \ac{LEO} a 27000 km/h.
 Usare i motori dell'antenna non è abbastanza preciso e creerebbe stress inutile sui motori.
 La soluzione è quindi di usare quello che viene chiamato Phased Array Beam Steering.
 
 Torniamo ancora una volta all'esempio delle due antenne.
 Prima stavamo inviando lo stesso segnale alle due antenne, e quindi queste erano in fase l'una con l'altra.
-Per fare beam steering invece si invia il segnale alle antenne shiftato in fase per poterlo angolare.
+Per fare beam steering invece si invia il segnale alle antenne con una differenza di fase per poterlo angolare.
 Come risultato i tempi dei picchi e delle valli emesse da un'antenna sono differenti dalle altre.
 In questo modo le posizioni delle interferenze costruttive sono angolati verso una certa direzione, con interferenze distruttive da tutte le altre parti.
 Quindi, cambiando continuamente la fase del segnale inviato all'antenna possiamo creare una zona di sweeping di interferenza costruttiva.
@@ -223,14 +244,14 @@ Quindi, cambiando continuamente la fase del segnale inviato all'antenna possiamo
 Per sapere l'angolo esatto a cui il fascio di onde deve essere indirizzato si usano le coordinate GPS dell'antenna tramite il suo chip GPS, insieme alle posizioni orbitali del satellite Starlink che è conosciuto nel software dell'antenna.
 Il software calcola l'angolo e lo shift di fase richiesto per ciascuna delle antenne.
 I risultati dei calcoli del phase shift sono successivamente inviati ai 20 chip più grandi chiamati beamformers, e ciascun beamformer coordina 32 chip più piccoli chiamati moduli di front end, ciascuno dei quali controlla 2 antenne.
-Ogni pochi microsecondi questi calcoli sono aggionrati e distribuiti in tutto il PCB dell'antenna in modo da orientare perfettamente il segnale verso il satellite.
-Come risultato, il raggio può essere orientato ovunque in un campo visivo di 100 gradi.\cite{branch_education_how_2022}
+Ogni pochi microsecondi questi calcoli sono aggiornati e distribuiti in tutto il PCB dell'antenna in modo da orientare perfettamente il segnale verso il satellite.
+Come risultato, il raggio può essere orientato ovunque in un campo visivo di 100 gradi \cite{branch_education_how_2022}.
 
 \subsubsection{Invio dei dati in un segnale al satellite}
 La capacità di un satellite Starlink sarà di 20 Gbit/s quando opererà in due polarizzazioni con modulazione 64-\ac{QAM}.
 Ad oggi la rete può usare solo una polarizzazione.
 Per lavorare con la 64-\ac{QAM} è necessario avere un \ac{SNR} di più di 17dB.
-Al momento questo parametro al terminale UT-1 è tra gli 11 e i 12.5 dB, che corrisponde a una 16-32\ac{APSK} e ha un'efficienza spettrale di 4.5 bit/Hz al massimo.
+Al momento questo parametro al terminale UT-1 è tra gli 11 e i 12.5 dB, che corrisponde a una 16-32\ac{APSK} e ha un'efficienza spettrale di 4.5 bit/s/Hz al massimo.
 Le possibili efficienze spettrali per Starlink sono:
 
 \begin{table}[h]
@@ -248,7 +269,7 @@ QPSK     & 0.5   & 0.989  & -0.05 \\ \hline
 64QAM    & 0.873 & 5.1152 & 7.09  \\ \hline
 64QAM    & 0.948 & 5.5547 & 7.45  \\ \hline
 \end{tabular}
-\caption{Efficienza spettrale di Starlink \cite{rozenvasser_estimation_2023}.}
+\caption{Efficienza spettrale di Starlink \cite{rozenvasser_estimation_2023}}
 \end{table}
 
 \paragraph{Link budget}
@@ -264,8 +285,8 @@ $P_{tx}$ è la potenza del trasmettitore ed è dipendente dall'allocazione dinam
 
 Il guadagno del trasmettitore $G_{tx}$ è dipendente dalla tecnologia dell'antenna (il diametro $d$ e la lunghezza d'onda $\lambda$):
 \begin{itemize}
-  \item Parabolica: $G_{tx} = 20 * \log_{10} (\frac{\eta_{a} \pi d}{\lambda})$
-  \item Phased Array: $G_{tx} = 20 * \log_{10} (\frac{4 \eta_{a} \pi \sqrt[3]{m^2}}{\lambda})$
+  \item Parabolica: $G_{tx} = 20 \log_{10} (\frac{\eta_{a} \pi d}{\lambda})$
+  \item Phased Array: $G_{tx} = 20 \log_{10} (\frac{4 \eta_{a} \pi \sqrt[3]{m^2}}{\lambda})$
 \end{itemize}
 
 Il guadagno del ricevitore sul rumore $G_{rx}$ basato sul tipo del terminale utente:
@@ -285,7 +306,7 @@ Per la Ku/Ka-band $L_{atm} = 0.97 dB/km$ in media.
 \end{figure}
 
 Osserviamo in figura \ref{fig:atmospheric-losses-simulation} un picco del parametro $L_{atm}$ a 60 GHz.
-Per ridurre l'influenza delle perdite atmosferiche è preferibile usare i range di frequenza fino a 53 GHz, che corrisponde al piano di frequenze proposto da SpaceX (tabella \ref{tab:starlink-frequency-allocation-modulation-type})
+Per ridurre l'influenza delle perdite atmosferiche è preferibile usare i range di frequenza fino a 53 GHz, che corrisponde al piano di frequenze proposto da SpaceX (tabella \ref{tab:starlink-frequency-allocation-modulation-type}).
 Per la trasmissione in uplink si usano le frequenze 14-52.4 GHz e per la trasmissione in downlink le frequenze 10.7-42.5 GHz.
 Nella tabella \ref{tab:starlink-frequency-allocation-modulation-type} possiamo anche vedere i tipi di modulazione.
 Il tipo di modulazione può cambiare da \ac{BPSK} a 64-\ac{QAM}.
@@ -302,7 +323,7 @@ Tipo di modulazione  & \makecell{\ac{BPSK},\\M\ac{QAM}} & \makecell{\ac{OQPSK},\
 \label{tab:starlink-frequency-allocation-modulation-type}
 \end{table}
 
-$L_p = 20 * \log_{10} (\frac{4 \pi d}{\lambda})$
+$L_p = 20 \log_{10} (\frac{4 \pi d}{\lambda})$
 
 \begin{figure}[htbp]
   \centering
@@ -315,6 +336,7 @@ Il path loss nello spazio libero è il contributore principale alla perdita di p
 Alle altitudini calcolate per i satelliti Starlink, questo valore è di 160-175 dB.
 La perdita totale dal path loss nello spazio libero e le perdite atmosferiche sono 165-185 dB.
 
+% TODO: RISCRIVI QUESTA FRASE
 I risultati della modellazione e del calcolo della dipendenza della potenza ricevuta dal terminale utente dall'altezza dell'orbita del satellite per varie frequenze (da 10 a 50 GHz) sono illustrati nella figura \ref{fig:link-budget-wo-ecc}.
 
 \begin{figure}[htbp]
@@ -338,12 +360,12 @@ Aggiungiamo CG, guadagno di codifica dovuto al codice a correzione d'errore (\ac
   P_{rx} = P_{tx} + G_{tx} + G_{rx} - L_{tx} - L_{rx} - L_{atm} - L_{p} + CG
 \end{equation}
 
-I risultati della modellazione e calcolo della dipendenza della potenza ricevuta al termianle utente all'altezza dell'orbita del satellite per frequenze diverse (dai 10 ai 50 GHz), considerando l'uso di un codice di correzione di errore con un guadagno di codice di 10 dB è mostrato in \ref{fig:link-budget-w-ecc}
+I risultati della modellazione e calcolo della dipendenza della potenza ricevuta al terminale utente all'altezza dell'orbita del satellite per frequenze diverse (dai 10 ai 50 GHz), considerando l'uso di un codice di correzione di errore con un guadagno di codice di 10 dB sono mostrate in figura \ref{fig:link-budget-w-ecc}.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\linewidth]{./res/img/link_budget_w_ecc.png}
-  \caption{Link budget without \ac{ECC}}
+  \caption{Link budget with \ac{ECC}}
   \label{fig:link-budget-w-ecc}
 \end{figure}
 

@@ -35,7 +35,7 @@
 % language, font and encodings
 \RequirePackage{newpxtext,newpxmath}
 \RequirePackage[T1]{fontenc}
-\RequirePackage[english]{babel}
+\RequirePackage[italian]{babel}
 
 
 
@@ -230,18 +230,18 @@
   \setlength{\headwidth}{\textwidth}
 
   % custom titles
-  \renewcommand{\listfigurename}{List of Figures}
+  \renewcommand{\listfigurename}{Lista delle Figure}
   % \renewcommand{\listtablename}{List of Tables}
   % \renewcommand{\listalgorithmname}{List of Algorithms}
   % \renewcommand{\lstlistingname}{Code} % Caption name of code snippets
   % \renewcommand{\lstlistlistingname}{List of Code Snippets}
-  \def\listacronymname{List of Acronyms}
+  \def\listacronymname{Lista degli Acronimi}
 
   \def\abstractname{Abstract}
 
-  \renewcommand{\bibname}{References}
+  \renewcommand{\bibname}{Bibliografia}
 
-  \def\acknowledgmentsname{Acknowledgments}
+  \def\acknowledgmentsname{Ringraziamenti}
 
   % % insert dedication page
   % \dedicationpage
@@ -316,7 +316,7 @@
   }
 
   % set academic year in footer
-  \cfoot{\normalsize\textsc{Academic Year \\ \@academicYear}}
+  \cfoot{\normalsize\textsc{Anno Accademico \\ \@academicYear}}
 
   % set brands in header
   \lhead{
