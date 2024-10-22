@@ -200,8 +200,6 @@ Questo significa che se vogliamo rendere questi campi elettromagnetici più inte
 
 Per ricevere il segnale basta switchare il microchip dell'antenna, chiamato modulo front-end, che si vede in figura \ref{fig:aperture-couple-patch-antenna} da modalità trasmettitore a modalità ricevitore.
 
-TODO: MIGLIORARE SPIEGAZIONE RICEZIONE ONDA ELETTROMAGNETICA
-
 Quando un'onda elettromagnetica dal satellite è diretta verso l'antenna, i campi elettromagnetici del segnale in arrivo influenzano gli elettroni nel patch di rame, generando un flusso di elettroni.
 
 Questo segnale ad alta frequenza ricevuto è inviato alla feedlite dove il modulo di front-end che amplifica il segnale.
@@ -336,7 +334,6 @@ Il path loss nello spazio libero è il contributore principale alla perdita di p
 Alle altitudini calcolate per i satelliti Starlink, questo valore è di 160-175 dB.
 La perdita totale dal path loss nello spazio libero e le perdite atmosferiche sono 165-185 dB.
 
-% TODO: RISCRIVI QUESTA FRASE
 I risultati della modellazione e del calcolo della dipendenza della potenza ricevuta dal terminale utente dall'altezza dell'orbita del satellite per varie frequenze (da 10 a 50 GHz) sono illustrati nella figura \ref{fig:link-budget-wo-ecc}.
 
 \begin{figure}[htbp]
@@ -373,4 +370,46 @@ Per assicurare la minima probabilità d'errore è necessario avere un margine de
 Dalla figura \ref{fig:link-budget-w-ecc} possiamo vedere che ad alte frequenze l'altezza dell'oribita è limitata a 340 km.
 Il lancio della maggior parte dei satelliti è pianificata a quest'altezza.
 Per frequenze più basse, possono essere utilizzate orbite più alte a 550 km e 1110 km \cite{rozenvasser_estimation_2023}.
+
+\section{Direzionamento del traffico}
+Starlink direziona il traffico dai terminali utenti alle ground station in un processo a due step.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{./res/img/rtt_euterminal.png}
+  \caption{\ac{RTT} misurato da un terminale in Europa \cite{tanveer_making_2023}}
+  \label{fig:rtt-euterminal}
+\end{figure}
+
+Da come si può vedere in figura \ref{fig:rtt-euterminal} i cambiamenti di latenza misurati avvengono ogni 15 secondi.
+Questo viene fatto da un controller globale, che alloca i satelliti ai terminali utenti basandosi su fattori quali il carico (inteso come banda del satellite occupata da altri utenti), condizioni geospaziali (principalmente visibilità del satellite dal terminale utente e condizioni atmosferiche), e carica del satellite.
+
+C'è anche un controller nel satellite, che pianifica i flussi dai terminali utente assegnati a un satellite specifico.
+Questo si può notare dalla presenza di bande di latenza parallele negli intervalli di 15 secondi di allocazione dei terminali al satellite \cite{tanveer_making_2023}.
+Misure successive hanno rivelato un alto jitter (varianza del ritardo della connessione) e packet loss rate dell'1-2\% non correlato con la congestione di rete.
+Varianti tradizionali del \ac{TCP}, come Reno, faticano nell'ambiente delle comunicazioni satellitari, dato la soro sensibilità alla perdita di pacchetti e recupero lento del throughput.
+Varianti moderne come CUBIC hanno performance migliori grazie al Selective Acknowledgement (SACK), che gli permette di differenziare packet loss isolati da una congestione di rete.
+BBR, un algoritmo di controllo di congestione sviluppato da Google, ha dimostrato performance promettenti su Starlink mantenendo il tasso di invio anche durante la perdita di pacchetti.
+L'algoritmo stima il prodotto banda-ritardo del percorso e aggiusta i tassi di invio basandosi sui cambiamenti di latenza.
+Il problema di questo algoritmo è che la sua richiesta aggressiva di risorse può affamare le altre sessioni TCP \cite{geoff_huston_transport_2024}.
+
+\subsection{Identificazioni delle allocazioni del satellite}
+Per studiare l'algoritmo di scheduling, i ricercatori hanno dovuto identificare a quale satellite si connettevano i terminali utente.
+Usando le mappe di ostruzione fornite dall'applicazione per smartphone di Starlink hanno usato una nuova tecnica per trovare la traiettoria dei satelliti a cui un terminale si è connesso di recente.
+Il processo è sviluppato come segue:
+\begin{enumerate}
+  \item Estrarre le mappe di ostruzione 2D ogni 15 secondi usando \verb|starlink-grpc-tools| (che è una libreria per eseguire comandi su altri computer come se fossero eseguiti in locale) e ottenendo le posizioni dei satelliti disponibili pubblicamente.
+  \item Allineare le mappe 2D con le mappe 3D nell'app di starlink per determinare i parametri delle mappe 2D, come centro, raggio, e la rappresentazione degli angoli di elevazione e azimuth.
+  \item Isolare la traiettoria del satellite connesso durante uno slot di 15 secondi specifico facendo delle considerazioni sulle mappe di ostruzione dallo slot precedente e quello attuale.
+  \item Identificare il satellite che serve il terminale utente comparando le traiettorie estratte con la posizione calcolata dei satelliti visibili usando la misura di distanza Dynamic Time Warping, che è un modo di confrontare due sequenze temporale che non sono perfettamente sincronizzate.
+\end{enumerate}
+
+\subsection{Caratteristiche e preferenze dello scheduler globale}
+Le analisi dei satelliti allocati hanno rivelato diverse preferenze dello scheduler globale. Si possono individuare tre fattori determinanti per la scelta:
+\begin{itemize}
+  \item Posizione del satellite: lo scheduler preferisce satelliti con angoli di elevazione più alti, con la mediana dei satelliti selezionati a 22.9 gradi più alta di quelli non selezionati.
+  Lo scheduler ha anche una preferenza per i satelliti a nord del terminale utente. Questo probabilmente è dovuto alla zona di esclusione dell'International Telecommunication Union per le orbite geostazionarie e considerazioni di efficienza energetica, dato che i satelliti con un angolo di elevazione più alto hanno bisogno di meno energia per la comunicazione.
+  \item Data di lancio del satellite: lo scheduler dà priorità ai satelliti più nuovi, infatti la probabilità che un satellite sia selezionato aumenta all'aumentare della sua data di lancio. Questa preferenza potrebbe essere legata al mantenimento di una copertura stabile della costellazione, dato che i satelliti più vecchi stanno raggiungendo la fine del loro ciclo di vita.
+  \item Stato di illuminazione: lo scheduler favorisce i satelliti illuminati dal sole, scegliendoli il 72.3\% delle volte quando sono disponibili sia satelliti illuminati che non. I satelliti non illuminati sono selezionati solo quando rappresentano almeno il 35\% dei satelliti disponibili. La scelta sembra comunque guidata dal fatto che il loro angolo di elevazione sia maggiore di quelli illuminati, probabilmente per risparmiare energia \cite{tanveer_making_2023}.
+\end{itemize}
 
