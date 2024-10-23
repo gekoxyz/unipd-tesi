@@ -23,7 +23,7 @@ Questo segmento è costituito da un numero di satelliti in \ac{LEO}. Si tratta d
 
 Grazie ad informazioni pubblicamente disponibili sappiamo che ciascun satellite ha 4 antenne, due per le comunicazioni con le stazioni terrestri e le altre due per le comunicazioni con un certo numero di terminali utente \cite{branch_education_how_2022}.
 Ogni antenna è in grado di proiettare otto fasci in due polarizzazioni (RHCP/LHCP) per un totale di 48 fasci.
-La larghezza di banda disponibile per Starlinik in \ac{Ku}-band è di 8 canali da 250 MHz in downlink (per un totale di 2GHz) e 8 canali da 62.5 MHz in uplink (per un totale di 500 MHz)
+La larghezza di banda disponibile per Starlinik in \ac{Ku}-band è di 8 canali da 240 MHz in downlink (per un totale di 1.92 GHz) e 8 canali da 62.5 MHz in uplink (per un totale di 500 MHz)
 
 \begin{figure}[htbp]
   \centering
@@ -279,19 +279,21 @@ P_{rx} = P_{tx} + G_{tx} + G_{rx} - L_{tx} - L_{rx} - L_{atm} - L_{p}
 
 In questa equazione, $P_{tx}$ è la potenza del trasmettitore, $G_{tx}$ e $G_{rx}$ sono i guadagni del trasmettitore e del ricevitore, $L_{tx}$ e $L_{rx}$ sono le perdite ai trasmettitori e ricevitori, $L_{atm}$ è la perdita atmosferica, e $L_{p}$ è il path loss introdotto dalla separazione tra il trasmettitore e il ricevitore.
 
-$P_{tx}$ è la potenza del trasmettitore ed è dipendente dall'allocazione dinamica delle risorse $\eta_{a}$ e massa del satellite $m$.
+% ROBA SENZA UN CAZZO DI SENSO
 
-Il guadagno del trasmettitore $G_{tx}$ è dipendente dalla tecnologia dell'antenna (il diametro $d$ e la lunghezza d'onda $\lambda$):
-\begin{itemize}
-  \item Parabolica: $G_{tx} = 20 \log_{10} (\frac{\eta_{a} \pi d}{\lambda})$
-  \item Phased Array: $G_{tx} = 20 \log_{10} (\frac{4 \eta_{a} \pi \sqrt[3]{m^2}}{\lambda})$
-\end{itemize}
+% $P_{tx}$ è la potenza del trasmettitore ed è dipendente dall'allocazione dinamica delle risorse $\eta_{a}$ e massa del satellite $m$.
 
-Il guadagno del ricevitore sul rumore $G_{rx}$ basato sul tipo del terminale utente:
-\begin{itemize}
-  \item Parabolica: $G_{rx} = 5.24 dB$
-  \item Phased Array: $G_{rx} = 10.8 dB$
-\end{itemize}
+% Il guadagno del trasmettitore $G_{tx}$ è dipendente dalla tecnologia dell'antenna (il diametro $d$ e la lunghezza d'onda $\lambda$):
+% \begin{itemize}
+%   \item Parabolica: $G_{tx} = 20 \log_{10} (\frac{\eta_{a} \pi d}{\lambda})$
+%   \item Phased Array: $G_{tx} = 20 \log_{10} (\frac{4 \eta_{a} \pi \sqrt[3]{m^2}}{\lambda})$
+% \end{itemize}
+
+% Il guadagno del ricevitore sul rumore $G_{rx}$ basato sul tipo del terminale utente:
+% \begin{itemize}
+%   \item Parabolica: $G_{rx} = 5.24 dB$
+%   \item Phased Array: $G_{rx} = 10.8 dB$
+% \end{itemize}
 
 La perdita atmosferica $L_{atm}$ è dipendente dalla banda di frequenza e pressione atmosferica $P_{atm}$.
 Per la Ku/Ka-band $L_{atm} = 0.97 dB/km$ in media.
@@ -413,3 +415,24 @@ Le analisi dei satelliti allocati hanno rivelato diverse preferenze dello schedu
   \item Stato di illuminazione: lo scheduler favorisce i satelliti illuminati dal sole, scegliendoli il 72.3\% delle volte quando sono disponibili sia satelliti illuminati che non. I satelliti non illuminati sono selezionati solo quando rappresentano almeno il 35\% dei satelliti disponibili. La scelta sembra comunque guidata dal fatto che il loro angolo di elevazione sia maggiore di quelli illuminati, probabilmente per risparmiare energia \cite{tanveer_making_2023}.
 \end{itemize}
 
+\section{Comparazione della struttura del segnale con sistemi terrestri OFDM}
+La struttura del segnale inviato da Starlink utilizza \ac{OFDM}, una scelta popolare pre i sistemi di comunicazione wireless, come Wi-Fi e LTE.
+Tuttavia, il progetto di starlink differisce dai sistemi usati sulla terra per diversi aspetti chiave, che riflettono le caratteristiche uniche del canale di comunicazione spazio-terra e gli obiettivi di Starlink.
+
+\paragraph{Layout di canale} A differenza dei sistemi terresti dove la larghezza di banda e gli schemi di duplexing variano a livello regionale, Starlink impiega una struttura coerente per il downlink in banda Ku, con otto canali da 240 MHz separati da bande di guardia da 10 MHz.
+Questa ampia banda di guardia consente di attivare più canali contemporaneamente all'interno di una cella di servizio e riduce al minimo le interferenze tra celle adiacenti.
+In questo modo si riduce potenzialmente l'efficienza spettrale, ma si migliora l'affidabilità.
+
+\paragraph{Layout dei frame}
+I frame inviati da starlink, con un periodo di 1/750 secondi, seguono un layout consistenza con un'alta proporzione di sequenze di sincronizzazione; la PSS, SSS, CM1SS e CSS.
+Questa enfasi sulla sincronizzazione, superiore a quella dell'LTE e di altri sistemi terrestri, consente un'accurata equalizzazione del canale e stima dell'effetto Doppler, migliorando potenzialmente l'affidabilita della comunicazione e consentendo un doppio uso per il PNT (Positioning Navigation e Timing).
+
+\paragraph{Sequenze di sincronizzazione}
+L'utilizzo di sequenze di sincronizzazione multiple per frame, includendo il PSS m-sequence-based e la 4-\ac{QAM}-modulated SSS, lo distingue dai tradizionali sistemi terresti.
+L'utilizzo di queste sequenze di sincronizzazione e la scelta di un numero moderato di sottoportatori semplificano l'elaborazione del segnale e garantiscono una sincronizzazione robusta anche in condizioni difficili.
+
+\paragraph{Efficienza e margini di design}
+La struttura del segnale Starlink prioritizza l'affidabilità.
+L'efficiente occupazione dei simboli OFDM sfrutta il basso ritardo del canale \ac{LEO}-terra.
+Le ampie bande di guardia e l'elevata occupazione dei frame, pur riducendo l'efficienza spettrale, migliorano la mitigazione delle interferenze e la precisione della sincronizzazione.
+La scelta di un numero relativamente basso di sottoportanti (N = 1024) indica un design che prioritizza la robustezza piuttosto che massimizzare il throughput teorico.
