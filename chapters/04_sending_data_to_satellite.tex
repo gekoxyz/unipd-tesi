@@ -1,7 +1,7 @@
 %!TEX root = ../main.tex
 
 \chapter{Invio dei dati al satellite}
-
+\section{Modulazioni utilizzate}
 Per inviare i dati al satellite le informazioni sono codificate nelle onde elettromagnetiche attraverso un processo chiamato modulazione.
 Tutte le informazioni trasmesse attraverso un mezzo di comunicazione senza fili sono modulate in qualche modo.
 Il criterio principale per la scelta dello schema di modulazione è basato sulla massimizzazione del data rate e minimizzazione della potenza trasmessa, della larghezza di banda del canale, dell'errore sul simbolo e resistenza alle interferenze.
@@ -24,12 +24,6 @@ L'FDM suddivide lo spettro di frequenza in sottocanali, dando a ciascun utente l
 Un problema con FDM è che a un utente è data tutta la frequenza, e se non ha dati da inviare la banda è sprecata, dato che non può essere utilizzata da un altro utente.
 Il TDM invece utilizza il time slicing per dare a ciascun utente l'intera banda, ma solo per una frazione di secondo alla volta.
 Di nuovo, se l'utente non ha dati da inviare durante il suo timeslice, la banda non è utilizzata, e quindi è sprecata.
-
-
-% AGGIUNGERE
-% COMPARISON OF ADVANCED CODING AND MODULATION SCHEMES FOR MULTICARRIER SATELLITE COMMUNICATION SYSTEMS
-% SATELLITE COMMUNICATION MODULATION TECHNIQUES IMPLEMENTED USING SIMULINK AND MATLAB
-%
 
 La capacità di un satellite Starlink sarà di 20 Gbit/s quando opererà in due polarizzazioni con modulazione 64-\ac{QAM}.
 Ad oggi la rete può usare solo una polarizzazione.
@@ -96,6 +90,21 @@ Per la trasmissione in uplink si usano le frequenze 14-52.4 GHz e per la trasmis
 Nella tabella \ref{tab:starlink-frequency-allocation-modulation-type} possiamo anche vedere i tipi di modulazione.
 Il tipo di modulazione può cambiare da \ac{BPSK} a 64-\ac{QAM}.
 
+Esiste un trade-off tra la semplicità al ricevitore di un segnale facilmente demodulabile e l'efficienza di quel segnale.
+Due delle efficienze di maggior interesse nei sistemi di comunicazione satellitari sono l'efficienza spettrale e l'efficienza energetica.
+
+\paragraph{Efficienza spettrale}
+L'efficienza spettrale si riferisce al rapporto tra la velocità dei dati e la larghezza di banda del segnale, che misura quanti bit al secondo possono essere trasmessi per Hertz di larghezza di banda (bps/Hz).
+Secondo il teorema della larghezza di banda minima di Nyquist, è possibile trasmettere fino a 2 bps/Hz in banda base senza codifica.
+I sistemi ibridi fase-ampiezza a più livelli o sistemi M-ari possono raggiungere efficienze spettrali ancora più elevate a costo di una magagiore complessità. Tuttavia, bisogna comunque tenere presente che la velocità massima dei dati senza errori di questi sistemi è in ultima analisi limitata dal rapporto segnale/rumore (\ac{SNR}), come descritto dal teorema della capacità del canale di Shannon \cite{don_k_lefevre_power-efficient_1989}.
+
+\paragraph{Efficienza energetica}
+L'efficienza energetica è il rapporto tra la velocità dei dati e la potenza necessaria per trasmettere i dati senza errori.
+Nei sistemi reali, la potenza richiesta dipende anche da fattori quali le figure di rumore, i guadagni dell'antenna e la distanza tra trasmettitore e ricevitore.
+Per effettuare confronti relativi, un metodo semplice consiste nel confrontare l'\ac{SNR} richiesto per ottenere lo stesso tasso di errore di bit (\ac{BER}).
+Questo approccio consente di confrontare sistemi che sono identici in termini di figura di rumore, perdita di percorso e altri fattori ma differiscono nella modulazione.
+La differenza nell'SNR richiesto rivela le prestazioni relative di ciascun tipo di modulazione \cite{don_k_lefevre_power-efficient_1989}.
+
 \begin{table}[h]
 \centering
 \begin{tabular}{|c|c|c|}
@@ -107,6 +116,96 @@ Tipo di modulazione  & \makecell{\acs{BPSK},\\M\acs{QAM}} & \makecell{\acs{OQPSK
 \caption{Path loss nello spazio aperto in dB ($L_p$) \cite{rozenvasser_estimation_2023}.}
 \label{tab:starlink-frequency-allocation-modulation-type}
 \end{table}
+
+\subsection{Binary Phase Shift Keying (BPSK)}
+\ac{BPSK} è la forma più semplice di phase shift keying (\ac{PSK}).
+Utilizza due fasi, che sono separate da 180$\degree$ e quindi può essere anche chiamata 2-\ac{PSK}
+Non importa particolarmente dove i punti sono posizionati nella costellazione, e in figura \ref{fig:bpsk-diagram} sono posizionati sull'asse dei reali, rispettivamente a 0$\degree$ e 180$\degree$.
+La costellazione è la più robusta di tutte le \ac{PSK}, ma può solo modulare 1 bit/simbolo e non è quindi adatta per applicazioni ad alta velocità di trasmissione dati.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{./res/img/bpsk_diagram.png}
+  \caption{Diagramma per la costellazione BPSK}
+  \label{fig:bpsk-diagram}
+\end{figure}
+
+La forma generale per la \ac{BPSK} segue l'equazione: $s_n(t) = \sqrt{\frac{2E_b}{T_b}} \cos(2\pi f t + \pi(1-n)) \quad , n = 0,1 $.
+Questo dà due fasi: 0 e $\pi$.
+
+Il bit error rate (\ac{BER}) della \ac{BPSK} sotto ipotesi di rumore addittivo Gaussiano bianco (\ac{AWGN}) può essere calcolata come: $P_b = Q(\sqrt{\frac{2 E_b}{N_0}})$.
+
+Per la \ac{BPSK}, probabilità di errore sul bit è espressa come: $P_{\text{bit}} = \frac{1}{2} erfc(\sqrt{\frac{E_b}{N_0}})$.
+
+\subsection{Quadrature Phase Shift Keying (QPSK)}
+A volte viene chiamata anche 4-\ac{PSK}, o 4-\ac{QAM} (anche se i concetti alla base sono diversi le onde radio risultanti sono esattamente le stesse).
+La \ac{QPSK} utilizza quattro punti sul diagramma delle costellazioni, equispaziate attorno a un cerchio.
+Con quattro fasi, \ac{QPSK} può codificare due bit per simbolo, utilizzando la codifica di Gray per minimizzare il bit error rate (\ac{BER}).
+
+Si può anche utilizzare una \ac{QPSK} per raddoppiare il data rate rispetto a una \ac{BPSK} utilizzando la stessa banda, oppure per mantenere lo stesso data rate di una \ac{BPSK} ma dimezzando la banda richiesta.
+Nel secondo caso, il \ac{BER} di una \ac{QPSK} è esattamente lo stesso \ac{BER} di una \ac{BPSK}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{./res/img/qpsk_diagram.png}
+  \caption{Diagramma per la costellazione QPSK}
+  \label{fig:qpsk-diagram}
+\end{figure}
+
+L'implemetazione di una \ac{QPSK} è più generale di quella di una \ac{BPSK}.
+L'equazione dei punti della costellazione è: $s_n(t) = \sqrt{\frac{2 E_s}{T_s}} \cos(2 \pi f_c t + (2n - 1)\frac{\pi}{4}) \quad , n=1,2,3,4$.
+
+Da questa formula otteniamo le fasi: $\frac{\pi}{4},\frac{3\pi}{4},\frac{5\pi}{4},\frac{7\pi}{4}$.
+
+Questo risulta in un segnale bidimensionale con base ortonormale: $\phi_1(t) = \sqrt{\frac{2}{T_s}} \cos(2 \pi f_c t) \quad, \phi_2(t) = \sqrt{\frac{2}{T_s}} \sin(2 \pi f_c t)$.
+La prima componente della base viene utilizzata come fase del segnale, e la seconda componente come quadratura.
+Quindi, i segnali della costellazione corrispondono ai 4 punti $(\pm \sqrt{\frac{E_s}{2}}, \pm \sqrt{\frac{E_s}{2}})$.
+I fattori di $\frac{1}{2}$ indicano che la potenza totale è distribuita equamente tra le due portanti.
+
+Comparare i segnali della base con quelli della \ac{BPSK} mostra chiaramente come la \ac{QPSK} può essere vista come due segnali \ac{BPSK} indipendenti.
+
+Anche se la \ac{QPSK} può essere vista come una modulazione quaternaria, è più semplice vederla come due portanti in quadratura modulate indipendentemente.
+Con questa interpretazione, i bit pari (o dispari) vengono utilizzati per modulare la componente in fase della portante, mentre i bit dispari (o pari) vengono utilizzati per modulare la compornente in quadratura-fase della portante.
+\ac{BPSK} viene utilizzato su entrambe le portanti e possono essere demodulate indipendentemente.
+
+Come risultato, la probabilità di errore della \ac{QPSK} è la stessa della \ac{BPSK}, cioè: $P_b = Q(\sqrt{\frac{2 E_b}{N_0}})$
+
+La differenza è che, per raggiungere la stessa probabilità di errore sul bit della \ac{BPSK}, la \ac{QPSK} utilizza il doppio della potenza (dato che due bit sono trasmessi simultaneamente).
+
+La probabilità di errore sul simbolo è data da:
+$$P_s = 1 - (1-P_b)^2 = 2Q(\sqrt{\frac{E_s}{N_0}}) - [Q(\sqrt{\frac{E_s}{N_0}})]^2$$
+
+Se il rapporto segnale rumore è alto la probabilità di errore sul simbolo può essere approssimata come:
+$$P_s \approx 2Q(\sqrt{\frac{E_s}{N_0}})$$
+
+\subsubsection{Offset Quadrature Phase Shift Keying (OQPSK)}
+Starlink utilizza però la \ac{OQPSK}, che è una variante della modulazione phase-shift keying che utilizza quattro diversi valori di fase da trasmettere.
+Prendere quattro valori di fase alla volta per costruire un simbolo \ac{QPSK} può consentire alla fase del segnale di saltare fino a $180 \degree$ alla volta.
+Quando il segnale è filtrato passa-basso, questi sfasamenti determinano grandi fluttuazioni di ampiezza, una proprietà non desiderabile nei sistemi di comunicazione.
+Se compensiamo la temporizzazione dei bit pari e dispari di un periodo di un bit, o mezzo periodo di simbolo, le componenti in fase e in quadratura non cambieranno mai contemporaneamente.
+Nel diagramma della costellazione in figura \ref{fig:oqpsk-diagram}, si può vedere che questo limiterà lo sfasamento a non più di $90 \degree$ alla volta.
+Ciò produce fluttuazioni di ampiezza molto inferiori rispetto al \ac{QPSK} non offset e talvolta è preferito nella pratica.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{./res/img/oqpsk_diagram.png}
+  \caption{Diagramma per la costellazione OQPSK}
+  \label{fig:oqpsk-diagram}
+\end{figure}
+
+\subsection{Quadrature Amplitude Modulation (QAM)}
+La modulazione \ac{QAM} trasmette segnali modulando le ampiezze di due onde portanti, utilizzando lo schema di modulazione digitale amplitude-shift keying (ASK) o lo schema di modulazione analogica amplitude modulation (AM). Le due onde portanti hanno la stessa frequenza e sono fuori fase tra loro di $90\degree$.
+Il segnale trasmesso è creato sommando le due onde portanti tra di loro.
+Al ricevitore, le due onde possono essere coerentemente demodulate grazie alla loro ortogonalità.
+Nella \ac{QAM}, i punti della costellazione sono distribuiti in una griglia quadrata con spaziatura orizzontale e verticale uguale.
+
+Utilizzando una costellazione di ordine superiore è possibile trasmettere più bit per simbolo.
+Però, se l'energia media della costellazione è la stessa, i punti devono essere più vicini tra di loro e quindi più suscettibili al rumore.
+Questo risulta in un \ac{BER} più alto, e quindi costellazioni di ordine superiore possono fornire dati in modo meno affidabile rispetto alle costellazioni di ordine inferiore, con un'energia media costante.
+Utilizzare \ac{QAM} di ordine più alto senza aumentare il \ac{BER} richiede un più alto \ac{SNR}, che si ottiene aumentando l'energia del segnale, riducendo il rumore, o facendo entrambe le cose.
+
+Se sono richieste velocità di trasmissione dati superiori a quelle offerte da 8-\ac{PSK}, è più conveniente passare a \ac{QAM} poichè consente di ottenere una distanza maggiore tra i punti adiacenti nel piano complesso distribuendo i punti in modo più uniforme.
+Il fattore che complica le cose è che i punti non sono più tutti alla stessa ampiezza e quindi il demodulatore deve identificare correttamente sia la fase che l'ampiezza, e non solo la fase.
 
 % $L_p = 20 \log_{10} (\frac{4 \pi d}{\lambda})$
 
