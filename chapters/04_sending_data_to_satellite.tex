@@ -269,10 +269,10 @@ Starlink direziona il traffico dai terminali utenti alle ground station in un pr
 
 Come prima cosa un controller globale di rete, che alloca i satelliti ai terminali degli utenti basandosi su fattori quali il carico (inteso come banda del satellite occupata da altri utenti), le condizioni geospaziali (principalmente visibilità del satellite dal terminale utente e condizioni atmosferiche), e carica del satellite.
 Da come si può vedere in figura \ref{fig:rtt-euterminal} i cambiamenti di latenza misurati avvengono ogni 15 secondi, e quindi le allocazioni vengono fatte ogni 15 secondi.
+
 Come seconda cosa c'è un controller nel satellite, che pianifica i flussi dai terminali utente assegnati a un satellite specifico.
 Questo si può notare dalla presenza di bande di latenza parallele negli intervalli di 15 secondi di allocazione dei terminali al satellite \cite{tanveer_making_2023} \cite{geoff_huston_transport_2024}.
 
-% Misure successive hanno rivelato un alto jitter (varianza del ritardo della connessione) e packet loss rate dell'1-2\% non correlato con la congestione di rete.
 Misure successive hanno rivelato che il servizio ha una velocità di download mediana di circa 120 Mbps in download, con picchi di 370 Mbps e minimi di 10 Mbps, e 15 Mbps di capacità in upload, con varianza tra i 5 Mbps e i 50 Mbps, come si può vedere in figura \ref{fig:starlink-performance} \cite{geoff_huston_transport_2024}.
 
 \begin{figure}[htbp]
@@ -282,11 +282,8 @@ Misure successive hanno rivelato che il servizio ha una velocità di download me
   \label{fig:starlink-performance}
 \end{figure}
 
-% Varianti tradizionali del \ac{TCP}, come Reno, faticano nell'ambiente delle comunicazioni satellitari, dato la soro sensibilità alla perdita di pacchetti e recupero lento del throughput.
 Varianti tradizionali del \ac{TCP}, come Reno, faticano nell'ambiente delle comunicazioni satellitari, dato che utilizzano un'inflazione lineare della finestra di invio mentre non ci sono perdite, e dimezza la sua dimensione come risposta al packet loss.
 Varianti moderne come CUBIC hanno performance migliori grazie al Selective Acknowledgement (SACK), che gli permette di differenziare packet loss isolati da una congestione di rete, e utilizza un "window inflation rate" variabile che tenta di stabilizzare il tasso di invio a un livello subito sotto la costruzione delle code di rete (che porta poi al packet loss).
-
-% TODO: LEGGERE ELENCO CON 3 PUNTI E VALUTARE SE VA BENE INSERIRLO QUI (A TRANSPORT PROTOCOL VIEW OF STARLINK)
 
 In termini generali c'è un piccolo insieme di ipotesi comuni sulle caratteristiche del percorso di rete per questi algoritmi di controllo TCP.
 \begin{itemize}
@@ -302,11 +299,6 @@ Esiste la possibilità di una perdita di pacchetti indotta dalla congestione, co
 Il TCP in genere tende a reagire a tali ambienti utilizzando scelte conservative.
 
 Anche il verificarsi di una perdita di pacchetti non basata sulla congestione può compromettere le prestazioni TCP. Convenzionalmente, la perdita indurrà il mittente a ridurre rapidamente la sua finestra di invio, sulla base del fatto che se questa perdita è causata da un overflow del buffer di rete, il mittente deve consentire a questi buffer di svuotarsi e quindi riprenderà a inviare a una velocità inferiore, il che dovrebbe ripristinare la coerenza del ciclo di controllo del feedback.
-
-% POI AGGIUNGERE "PROTOCOL TUNING FOR STARLINK" SE CI STA BENE MA SUCCESSIVAMENTE AI PROSSIMI PARAGRAFI
-% LEGGI PROTOCOL TUNING
-% LEGGI PROSSIMI PARAGRAFI
-% AGGIUNGI CONTEWNUTO
 
 BBR, un algoritmo di controllo di congestione sviluppato da Google, ha dimostrato performance promettenti su Starlink mantenendo il tasso di invio anche durante la perdita di pacchetti.
 L'algoritmo stima il prodotto banda-ritardo del percorso e aggiusta i tassi di invio basandosi sui cambiamenti di latenza.
