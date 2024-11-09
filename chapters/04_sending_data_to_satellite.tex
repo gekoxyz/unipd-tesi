@@ -1,35 +1,40 @@
 %!TEX root = ../main.tex
 
-\chapter{Invio dei dati al satellite}
+\chapter{Trasmissione dei dati}
 \section{Modulazioni utilizzate}
 Per inviare i dati al satellite le informazioni sono codificate nelle onde elettromagnetiche attraverso un processo chiamato modulazione.
-Tutte le informazioni trasmesse attraverso un mezzo di comunicazione senza fili sono modulate in qualche modo.
 Il criterio principale per la scelta dello schema di modulazione è basato sulla massimizzazione del data rate e minimizzazione della potenza trasmessa, della larghezza di banda del canale, dell'errore sul simbolo e resistenza alle interferenze.
 
 Le tecniche di modulazione e demodulazione digitale richiedono una maggiore complessità e un elevato livello di integrazione per trasferire grandi quantità di dati e informazioni.
-Un filtraggio eccessivo per migliorare l'efficienza spettrale può ridurre le interferenze ma aumentare il \ac{BER} (Bit Error Rate) a causa della sfocatura dei simboli trasmessi.
+Un filtraggio eccessivo per migliorare l'efficienza spettrale può ridurre le interferenze ma aumentare il \ac{BER} a causa della sfocatura dei simboli trasmessi.
 
-Per inviare dati digitali usando una tecnologia analogica, l'emittente genera un sengale portante a una certa frequenza.
+Per inviare dati digitali, l'emittente genera un segnale portante a una certa frequenza.
 Per codificare il segnale digitale nella sinusoide sono poi utilizzate le seguenti tecniche:
 \begin{itemize}
-  \item Amplitude-shift modulation (keying): varia l'ampiezza (cioè la tensione) del segnale.
+  \item Amplitude-shift modulation (keying): varia l'ampiezza del segnale (cioè la tensione).
   \item Frequency-shift modulation: due (o più) frequenze vicine alla frequenza portante sono utilizzate.
-  \item Phase-shift modulation: sposta sistematicamente l'onda portante a intervalli uniformemente spaziati.
+  \item Phase-shift modulation: varia la fase della portante a intervalli spaziati del periodo di simbolo.
 \end{itemize}
 
-Oltre alla modulazione i dati vengono trasmessi efficientemente anche utilizzando tecniche di multiplexing.
-Il multiplexing consente di combinare più sengali in un singolo canale di trasmissione, massimizzando l'uso della banda e migliorando l'efficienza del sistema.
+Oltre alla modulazione i dati vengono trasmessi utilizzando anche tecniche di multiplexing.
+Il multiplexing consente di combinare più segnali in un singolo canale di trasmissione, massimizzando l'uso della banda e migliorando l'efficienza del sistema.
 Esistono due principali approcci al multiplexing: FDM (Frequency Division Multiplexing) e TDM (Time Division Multiplexing).
 L'FDM suddivide lo spettro di frequenza in sottocanali, dando a ciascun utente l'utilizzo esclusivo di un sottocanale.
-Un problema con FDM è che a un utente è data tutta la frequenza, e se non ha dati da inviare la banda è sprecata, dato che non può essere utilizzata da un altro utente.
-Il TDM invece utilizza il time slicing per dare a ciascun utente l'intera banda, ma solo per una frazione di secondo alla volta.
+Un problema con FDM è che a un utente è data tutta la sottobanda, e se non ha dati da inviare la banda è sprecata, dato che non può essere utilizzata da un altro utente.
+Il TDM invece utilizza il time slicing per dare a ciascun utente l'intera banda, ma solo per una frazione di tempo alla volta.
 Di nuovo, se l'utente non ha dati da inviare durante il suo timeslice, la banda non è utilizzata, e quindi è sprecata.
 
 La capacità di un satellite Starlink sarà di 20 Gbit/s quando opererà in due polarizzazioni con modulazione 64-\ac{QAM}.
 Ad oggi la rete può usare solo una polarizzazione.
-Per lavorare con la 64-\ac{QAM} è necessario avere un \ac{SNR} di più di 17dB.
-Al momento questo parametro al terminale UT-1 è tra gli 11 e i 12.5 dB, che corrisponde a una 16-32\ac{APSK} e ha un'efficienza spettrale di 4.5 bit/s/Hz al massimo.
-Le possibili efficienze spettrali per Starlink sono:
+
+Per lavorare con la 64-\ac{QAM} è necessario avere un \ac{SNR} di più di 17 dB, infatti in questo caso il \ac{BER} sarebbe $0.49 \%$.
+Questo perchè per una M-\ac{QAM} $P_e \approxeq 4 (1-\frac{1}{sqrt{M}}) Q(\sqrt{\frac{3}{M - 1} \frac{E_s}{N_0}})$ con $\frac{E_s}{N_0}$ che è il SNR.
+Dalla probabilità di errore sul simbolo possiamo calcolare $P_{\text{bit}} \approxeq \frac{P_e}{\log_2 M}$ per $\frac{E_s}{N_0} >> 1$.
+
+Al momento questo parametro al terminale UT-1 è tra gli 11 e i 12.5 dB, che permette l'uso di una 16-32\acs{APSK} e ha un'efficienza spettrale di 4.5 bit/s/Hz al massimo.
+
+Considerando anche l'applicazione di un codice di canale, 
+caratterizzato da un code-rate $\frac{k}{n}$ ($k$ bit di informazione ogni $n$ bit di codice), le efficienze spettrali che si che si ottengono con diverse combinazioni di modulazione e code-rate sono illustrate in tabella \ref{tab:spectral-efficiency}
 
 \begin{table}[h]
 \centering
@@ -47,6 +52,7 @@ QPSK     & 0.5   & 0.989  \\ \hline
 64QAM    & 0.948 & 5.5547 \\ \hline
 \end{tabular}
 \caption{Efficienza spettrale di Starlink \cite{rozenvasser_estimation_2023}}
+\label{tab:spectral-efficiency}
 \end{table}
 
 \paragraph{Link budget}
@@ -58,29 +64,13 @@ P_{rx} = P_{tx} + G_{tx} + G_{rx} - L_{tx} - L_{rx} - L_{atm} - L_{p}
 
 In questa equazione, $P_{tx}$ è la potenza del trasmettitore, $G_{tx}$ e $G_{rx}$ sono i guadagni del trasmettitore e del ricevitore, $L_{tx}$ e $L_{rx}$ sono le perdite ai trasmettitori e ricevitori, $L_{atm}$ è la perdita atmosferica, e $L_{p}$ è il path loss introdotto dalla separazione tra il trasmettitore e il ricevitore.
 
-% ROBA SENZA UN CAZZO DI SENSO
-
-% $P_{tx}$ è la potenza del trasmettitore ed è dipendente dall'allocazione dinamica delle risorse $\eta_{a}$ e massa del satellite $m$.
-
-% Il guadagno del trasmettitore $G_{tx}$ è dipendente dalla tecnologia dell'antenna (il diametro $d$ e la lunghezza d'onda $\lambda$):
-% \begin{itemize}
-%   \item Parabolica: $G_{tx} = 20 \log_{10} (\frac{\eta_{a} \pi d}{\lambda})$
-%   \item Phased Array: $G_{tx} = 20 \log_{10} (\frac{4 \eta_{a} \pi \sqrt[3]{m^2}}{\lambda})$
-% \end{itemize}
-
-% Il guadagno del ricevitore sul rumore $G_{rx}$ basato sul tipo del terminale utente:
-% \begin{itemize}
-%   \item Parabolica: $G_{rx} = 5.24 dB$
-%   \item Phased Array: $G_{rx} = 10.8 dB$
-% \end{itemize}
-
 La perdita atmosferica $L_{atm}$ è dipendente dalla banda di frequenza e pressione atmosferica $P_{atm}$.
 Per la Ku/Ka-band $L_{atm} = 0.97 dB/km$ in media.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\linewidth]{./res/img/atmospheric_losses_simulation.png}
-  \caption{Simulazione delle perdite atmosferiche}
+  \caption{Perdite atmosferiche}
   \label{fig:atmospheric-losses-simulation}
 \end{figure}
 
@@ -90,13 +80,13 @@ Per la trasmissione in uplink si usano le frequenze 14-52.4 GHz e per la trasmis
 Nella tabella \ref{tab:starlink-frequency-allocation-modulation-type} possiamo anche vedere i tipi di modulazione.
 Il tipo di modulazione può cambiare da \ac{BPSK} a 64-\ac{QAM}.
 
-Esiste un trade-off tra la semplicità al ricevitore di un segnale facilmente demodulabile e l'efficienza di quel segnale.
+Esiste un trade-off tra la semplicità al ricevitore di un segnale facilmente demodulabile e l'efficienza di modulazione di quel segnale.
 Due delle efficienze di maggior interesse nei sistemi di comunicazione satellitari sono l'efficienza spettrale e l'efficienza energetica.
 
 \paragraph{Efficienza spettrale}
 L'efficienza spettrale si riferisce al rapporto tra la velocità dei dati e la larghezza di banda del segnale, che misura quanti bit al secondo possono essere trasmessi per Hertz di larghezza di banda (bps/Hz).
 Secondo il teorema della larghezza di banda minima di Nyquist, è possibile trasmettere fino a 2 bps/Hz in banda base senza codifica.
-I sistemi ibridi fase-ampiezza a più livelli o sistemi M-ari possono raggiungere efficienze spettrali ancora più elevate a costo di una magagiore complessità. Tuttavia, bisogna comunque tenere presente che la velocità massima dei dati senza errori di questi sistemi è in ultima analisi limitata dal rapporto segnale/rumore (\ac{SNR}), come descritto dal teorema della capacità del canale di Shannon \cite{don_k_lefevre_power-efficient_1989}.
+I sistemi ibridi fase-ampiezza a più livelli o sistemi M-ari possono raggiungere efficienze spettrali ancora più elevate a costo di una maggiore complessità. Tuttavia, bisogna comunque tenere presente che la velocità massima dei dati senza errori di questi sistemi è in ultima analisi limitata dal rapporto segnale/rumore (\ac{SNR}), come descritto dal teorema della capacità del canale di Shannon \cite{don_k_lefevre_power-efficient_1989}.
 
 \paragraph{Efficienza energetica}
 L'efficienza energetica è il rapporto tra la velocità dei dati e la potenza necessaria per trasmettere i dati senza errori.
@@ -113,7 +103,7 @@ La differenza nell'SNR richiesto rivela le prestazioni relative di ciascun tipo 
 Frequenza (GHz)  & \makecell{14.0-14.5 \\ 27.5-29.1 \\ 29.5-30.0 \\ 47.2-52.4}  & \makecell{10.7-12.7\\17.8-18.6\\18.8-19.3\\37.5-42.5} \\ \hline
 Tipo di modulazione  & \makecell{\acs{BPSK},\\M\acs{QAM}} & \makecell{\acs{OQPSK},\\ M\acs{QAM}} \\ \hline
 \end{tabular}
-\caption{Path loss nello spazio aperto in dB ($L_p$) \cite{rozenvasser_estimation_2023}.}
+\caption{Schemi di modulazione \cite{rozenvasser_estimation_2023}.}
 \label{tab:starlink-frequency-allocation-modulation-type}
 \end{table}
 
@@ -122,7 +112,7 @@ Tipo di modulazione  & \makecell{\acs{BPSK},\\M\acs{QAM}} & \makecell{\acs{OQPSK
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\linewidth]{./res/img/free_space_path_loss_atm_loss.png}
-  \caption{Path loss nello spazio libero e perdita atmosferica}
+  \caption{Path loss ($L_p$) nello spazio libero e perdita atmosferica}
   \label{fig:free-space-path-loss-atm-loss}
 \end{figure}
 
@@ -139,7 +129,7 @@ I risultati della modellazione e del calcolo della dipendenza della potenza rice
   \label{fig:link-budget-wo-ecc}
 \end{figure}
 
-Dalla figura \ref{fig:link-budget-wo-ecc} si può vedere che il valore più alto della potenza del segnale è 150 dB.
+Dalla figura \ref{fig:link-budget-wo-ecc} si può vedere che il valore più alto della potenza del segnale è 150 dBW.
 Finchè il segnale passa attraverso l'atmosfera gradualmente viene attenuato.
 L'attenuazione avviene anche sui dispositivi ricevitori e trasmettitori.
 Il grado di attenuazione dipende da molti parametri e limita l'altezza dell'orbita del satellite.
@@ -163,13 +153,13 @@ I risultati della modellazione e calcolo della dipendenza della potenza ricevuta
 \end{figure}
 
 Per assicurare la minima probabilità d'errore è necessario avere un margine del \ac{SNR} al ricevitore, che dipende dal tipo di modulazione.
-Dalla figura \ref{fig:link-budget-w-ecc} possiamo vedere che ad alte frequenze l'altezza dell'oribita è limitata a 340 km.
+Dalla figura \ref{fig:link-budget-w-ecc} possiamo vedere che ad alte frequenze l'altezza dell'orbita è limitata a 340 km.
 Il lancio della maggior parte dei satelliti è pianificata a quest'altezza.
 Per frequenze più basse, possono essere utilizzate orbite più alte a 550 km e 1110 km \cite{rozenvasser_estimation_2023}.
 
 \subsection{Binary Phase Shift Keying (BPSK)}
 \ac{BPSK} è la forma più semplice di phase shift keying (\ac{PSK}).
-Utilizza due fasi, che sono separate da 180$\degree$ e quindi può essere anche chiamata 2-\ac{PSK}
+Utilizza due fasi, che sono separate da 180$\degree$ e quindi può essere anche chiamata 2-\ac{PSK}.
 Non importa particolarmente dove i punti sono posizionati nella costellazione, e in figura \ref{fig:bpsk-diagram} sono posizionati sull'asse dei reali, rispettivamente a 0$\degree$ e 180$\degree$.
 La costellazione è la più robusta di tutte le \ac{PSK}, ma può solo modulare 1 bit/simbolo e non è quindi adatta per applicazioni ad alta velocità di trasmissione dati.
 
@@ -180,12 +170,14 @@ La costellazione è la più robusta di tutte le \ac{PSK}, ma può solo modulare 
   \label{fig:bpsk-diagram}
 \end{figure}
 
-La forma generale per la \ac{BPSK} segue l'equazione: $$s_n(t) = \sqrt{\frac{2E_b}{T_b}} \cos(2\pi f t + \pi(1-n)) \quad , n = 0,1 $$.
+La forma generale per la \ac{BPSK} segue l'equazione:
+$$s_n(t) = \sqrt{\frac{2E_b}{T_b}} \cos(2\pi f t + \pi(1-n)) \quad , n = 0,1 $$
 Questo dà due fasi: 0 e $\pi$.
 
-Il bit error rate (\ac{BER}) della \ac{BPSK} sotto ipotesi di rumore addittivo Gaussiano bianco (\ac{AWGN}) può essere calcolata come: $P_b = Q(\sqrt{\frac{2 E_b}{N_0}})$.
+Il bit error rate (\ac{BER}) della \ac{BPSK} sotto ipotesi di rumore addittivo Gaussiano bianco (\acs{AWGN}) può essere calcolata come:
+$$P_b = Q(\sqrt{\frac{2 E_b}{N_0}})$$
 
-Per la \ac{BPSK}, probabilità di errore sul bit è espressa come: $P_{\text{bit}} = \frac{1}{2} erfc(\sqrt{\frac{E_b}{N_0}})$.
+Dove $E_b$ è l'energia per bit, $\frac{N_0}{2}$ la densità spettrale del rumore e $T_b$ il periodo di bit.
 
 \subsection{Quadrature Phase Shift Keying (QPSK)}
 A volte viene chiamata anche 4-\ac{PSK}, o 4-\ac{QAM} (anche se i concetti alla base sono diversi le onde radio risultanti sono esattamente le stesse).
@@ -202,20 +194,23 @@ Nel secondo caso, il \ac{BER} di una \ac{QPSK} è esattamente lo stesso \ac{BER}
   \label{fig:qpsk-diagram}
 \end{figure}
 
-L'implemetazione di una \ac{QPSK} è più generale di quella di una \ac{BPSK}.
-L'equazione dei punti della costellazione è: $$s_n(t) = \sqrt{\frac{2 E_s}{T_s}} \cos(2 \pi f_c t + (2n - 1)\frac{\pi}{4}) \quad , n=1,2,3,4$$.
+L'implementazione di una \ac{QPSK} è più generale di quella di una \ac{BPSK}.
+L'equazione dei segnali della costellazione è:
+$$s_n(t) = \sqrt{\frac{2 E_s}{T_s}} \cos(2 \pi f_c t + (2n - 1)\frac{\pi}{4}) \quad , n=1,2,3,4$$
+
+Dove $E_s$ è l'energia e $T_s$ il periodo di simbolo.
 
 Da questa formula otteniamo le fasi: $\frac{\pi}{4},\frac{3\pi}{4},\frac{5\pi}{4},\frac{7\pi}{4}$.
 
 Questo risulta in un segnale bidimensionale con base ortonormale: $$\phi_1(t) = \sqrt{\frac{2}{T_s}} \cos(2 \pi f_c t) \quad, \phi_2(t) = \sqrt{\frac{2}{T_s}} \sin(2 \pi f_c t)$$.
-La prima componente della base viene utilizzata come fase del segnale, e la seconda componente come quadratura.
+La prima componente della base viene utilizzata come componente in fase del segnale, e la seconda componente come quadratura.
 Quindi, i segnali della costellazione corrispondono ai 4 punti $(\pm \sqrt{\frac{E_s}{2}}, \pm \sqrt{\frac{E_s}{2}})$.
 I fattori di $\frac{1}{2}$ indicano che la potenza totale è distribuita equamente tra le due portanti.
 
-Comparare i segnali della base con quelli della \ac{BPSK} mostra chiaramente come la \ac{QPSK} può essere vista come due segnali \ac{BPSK} indipendenti.
+Confrontando i segnali della base con quelli della \ac{BPSK} si vede che la \ac{QPSK} può essere vista come due segnali \ac{BPSK} indipendenti.
 
 Anche se la \ac{QPSK} può essere vista come una modulazione quaternaria, è più semplice vederla come due portanti in quadratura modulate indipendentemente.
-Con questa interpretazione, i bit pari (o dispari) vengono utilizzati per modulare la componente in fase della portante, mentre i bit dispari (o pari) vengono utilizzati per modulare la compornente in quadratura-fase della portante.
+Con questa interpretazione, i bit pari (o dispari) vengono utilizzati per modulare la componente in fase della portante, mentre i bit dispari (o pari) vengono utilizzati per modulare la componente in quadratura-fase della portante.
 \ac{BPSK} viene utilizzato su entrambe le portanti e possono essere demodulate indipendentemente.
 
 Come risultato, la probabilità di errore della \ac{QPSK} è la stessa della \ac{BPSK}, cioè: $P_b = Q(\sqrt{\frac{2 E_b}{N_0}})$
@@ -246,7 +241,7 @@ Ciò produce fluttuazioni di ampiezza molto inferiori rispetto al \ac{QPSK} non 
 \subsection{Quadrature Amplitude Modulation (QAM)}
 La modulazione \ac{QAM} trasmette segnali modulando le ampiezze di due onde portanti, utilizzando lo schema di modulazione digitale amplitude-shift keying (ASK) o lo schema di modulazione analogica amplitude modulation (AM). Le due onde portanti hanno la stessa frequenza e sono fuori fase tra loro di $90\degree$.
 Il segnale trasmesso è creato sommando le due onde portanti tra di loro.
-Al ricevitore, le due onde possono essere coerentemente demodulate grazie alla loro ortogonalità.
+Al ricevitore, le due onde possono essere demodulate coerentemente grazie alla loro ortogonalità.
 Nella \ac{QAM}, i punti della costellazione sono distribuiti in una griglia quadrata con spaziatura orizzontale e verticale uguale.
 
 Utilizzando una costellazione di ordine superiore è possibile trasmettere più bit per simbolo.
@@ -257,8 +252,41 @@ Utilizzare \ac{QAM} di ordine più alto senza aumentare il \ac{BER} richiede un 
 Se sono richieste velocità di trasmissione dati superiori a quelle offerte da 8-\ac{PSK}, è più conveniente passare a \ac{QAM} poichè consente di ottenere una distanza maggiore tra i punti adiacenti nel piano complesso distribuendo i punti in modo più uniforme.
 Il fattore che complica le cose è che i punti non sono più tutti alla stessa ampiezza e quindi il demodulatore deve identificare correttamente sia la fase che l'ampiezza, e non solo la fase.
 
-\section{Direzionamento del traffico}
-Starlink direziona il traffico dai terminali utenti alle ground station in un processo a due step.
+\subsection{Orthogonal Frequency Division Multiplexing (OFDM)}
+Orthogonal Frequency Division Multiplexing (\ac{OFDM}) è un metodo di codificare i dati digitali su più frequenze portanti.
+
+\ac{OFDM} prende una sorgente di dati ad alta velocità e la divide in flussi più lenti che sono trasmessi simultaneamente attraverso un numero di sottoportanti ortogonali strettamente distanziate.
+Le sottoportanti essendo ortogonali non interferiscono tra di loro, permettendo così un utilizzo molto efficiente della banda disponibile.
+Al ricevitore, la sorgente di dati ad alta velocità è ricomposta usando l'algoritmo della trasformata veloce di Fourier (FFT).
+
+\ac{OFDM} è in grado di far fronte a condizioni di canale difficili (come l'attenuazione delle alte freqeunze in un lungo filo di rame e l'interferenza in banda stretta) senza filtri complessi.
+\ac{OFDM} può essere visto come l'utilizzo di molti segnali a banda stretta modulati lentamente piuttosto che di un unico segnale a banda larga modulato rapidamente, il che rende più semplice l'equalizzazione di canale (cioè la compensazione delle distorsioni ricevute dal segnale nel canale di comunicazione).
+L'equalizzazione di canale è semplificata perchè l'\ac{OFDM} potrebbe essere visto come l'utilizzo di molti segnali a banda stretta modulati lentamente invece di un singolo segnale a banda larga modulato rapidamente.
+La bassa frequenza di simboli rende possibile l'utilizzo di un intervallo di guardia tra simboli, consentendo di eliminare l'interferenza intersimbolica (ISI) e di utilizzare l'eco e la dispersione temporale per ottenere un miglioramento del rapporto segnale rumore.
+
+\subsubsection{Confronto della struttura del segnale con sistemi terrestri OFDM}
+La struttura del segnale inviato da Starlink utilizza \ac{OFDM}, tuttavia, il progetto di Starlink differisce dai sistemi usati sulla terra per diversi aspetti chiave, che riflettono le caratteristiche uniche del canale di comunicazione spazio-terra.
+
+\paragraph{Layout di canale} A differenza dei sistemi terresti dove la larghezza di banda e gli schemi di duplexing variano a livello regionale, Starlink impiega una struttura uguale in tutto il mondo per il downlink in banda Ku, con otto canali da 240 MHz separati da bande di guardia da 10 MHz.
+Questa ampia banda di guardia consente di attivare più canali contemporaneamente all'interno di una cella di servizio e riduce al minimo le interferenze tra celle adiacenti.
+In questo modo si riduce potenzialmente l'efficienza spettrale, ma si migliora l'affidabilità \cite{humphreys_signal_2023}.
+
+\paragraph{Layout dei frame}
+I frame inviati da starlink, con un periodo di 1/750 secondi, seguono un layout consistente con un'alta proporzione di sequenze di sincronizzazione; la PSS, SSS, CM1SS e CSS.
+Questa enfasi sulla sincronizzazione, superiore a quella dell'LTE e di altri sistemi terrestri, consente un'accurata equalizzazione del canale e stima dell'effetto Doppler, migliorando potenzialmente l'affidabilita della comunicazione e consentendo un doppio uso per il PNT (Positioning Navigation e Timing) \cite{humphreys_signal_2023}.
+
+\paragraph{Sequenze di sincronizzazione}
+L'utilizzo di sequenze di sincronizzazione multiple per frame, includendo il PSS m-sequence-based e la 4-\ac{QAM}-modulated SSS, lo distingue dai tradizionali sistemi terresti.
+L'utilizzo di queste sequenze di sincronizzazione e la scelta di un numero moderato di sottoportanti semplificano l'elaborazione del segnale e garantiscono una sincronizzazione robusta anche in condizioni difficili \cite{humphreys_signal_2023}.
+
+\paragraph{Efficienza e margini di design}
+La struttura del segnale Starlink da priorità all'affidabilità.
+L'efficiente occupazione dei simboli OFDM sfrutta il basso ritardo del canale \ac{LEO}-terra.
+Le ampie bande di guardia e l'elevata occupazione dei frame, pur riducendo l'efficienza spettrale, migliorano la mitigazione delle interferenze e la precisione della sincronizzazione.
+La scelta di un numero relativamente basso di sottoportanti (N = 1024) indica un design che prioritizza la robustezza piuttosto che massimizzare il throughput teorico \cite{humphreys_signal_2023}.
+
+\section{Gestione del traffico}
+Starlink gestisce il traffico dai terminali utenti alle ground station in un processo a due step.
 
 \begin{figure}[htbp]
   \centering
@@ -267,7 +295,7 @@ Starlink direziona il traffico dai terminali utenti alle ground station in un pr
   \label{fig:rtt-euterminal}
 \end{figure}
 
-Come prima cosa un controller globale di rete, che alloca i satelliti ai terminali degli utenti basandosi su fattori quali il carico (inteso come banda del satellite occupata da altri utenti), le condizioni geospaziali (principalmente visibilità del satellite dal terminale utente e condizioni atmosferiche), e carica del satellite.
+Come prima cosa un controller globale di rete alloca i satelliti ai terminali degli utenti basandosi su fattori quali il carico (inteso come banda del satellite occupata da altri utenti), le condizioni geospaziali (principalmente visibilità del satellite dal terminale utente e condizioni atmosferiche), e carica della batteria del satellite.
 Da come si può vedere in figura \ref{fig:rtt-euterminal} i cambiamenti di latenza misurati avvengono ogni 15 secondi, e quindi le allocazioni vengono fatte ogni 15 secondi.
 
 Come seconda cosa c'è un controller nel satellite, che pianifica i flussi dai terminali utente assegnati a un satellite specifico.
@@ -278,12 +306,12 @@ Misure successive hanno rivelato che il servizio ha una velocità di download me
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.7\linewidth]{./res/img/starlink_performance.png}
-  \caption{Performance misurate da agosto 2023 a marzo 2024}
+  \caption{Velocità della rete misurata da agosto 2023 a marzo 2024}
   \label{fig:starlink-performance}
 \end{figure}
 
-Varianti tradizionali del \ac{TCP}, come Reno, faticano nell'ambiente delle comunicazioni satellitari, dato che utilizzano un'inflazione lineare della finestra di invio mentre non ci sono perdite, e dimezza la sua dimensione come risposta al packet loss.
-Varianti moderne come CUBIC hanno performance migliori grazie al Selective Acknowledgement (SACK), che gli permette di differenziare packet loss isolati da una congestione di rete, e utilizza un "window inflation rate" variabile che tenta di stabilizzare il tasso di invio a un livello subito sotto la costruzione delle code di rete (che porta poi al packet loss).
+Varianti tradizionali del \ac{TCP}, come Reno, faticano nell'ambiente delle comunicazioni satellitari, dato che utilizzano un incremento lineare della finestra di invio finché non ci sono perdite, e dimezzano la sua dimensione come risposta al packet loss.
+Varianti moderne come CUBIC hanno prestazioni migliori grazie al Selective Acknowledgement (SACK), che permette di differenziare packet loss isolati da una congestione di rete, e utilizzano un tasso di incremento della dimensione della finestra variabile che tenta di stabilizzare il tasso di invio a un livello subito sotto la costruzione delle code di rete (che porta poi al packet loss).
 
 In termini generali c'è un piccolo insieme di ipotesi comuni sulle caratteristiche del percorso di rete per questi algoritmi di controllo TCP.
 \begin{itemize}
@@ -306,14 +334,23 @@ Il problema di questo algoritmo è che la sua richiesta aggressiva di risorse pu
 
 \subsection{Identificazioni delle allocazioni del satellite}
 Per studiare l'algoritmo di scheduling, i ricercatori hanno dovuto identificare a quale satellite si connettevano i terminali utente.
-Usando le mappe di ostruzione fornite dall'applicazione per smartphone di Starlink hanno usato una nuova tecnica per trovare la traiettoria dei satelliti a cui un terminale si è connesso di recente.
-Il processo è sviluppato come segue:
-\begin{enumerate}
-  \item Estrarre le mappe di ostruzione 2D ogni 15 secondi usando \verb|starlink-grpc-tools| (che è una libreria per eseguire comandi su altri computer come se fossero eseguiti in locale) e ottenendo le posizioni dei satelliti disponibili pubblicamente.
-  \item Allineare le mappe 2D con le mappe 3D nell'app di starlink per determinare i parametri delle mappe 2D, come centro, raggio, e la rappresentazione degli angoli di elevazione e azimuth.
-  \item Isolare la traiettoria del satellite connesso durante uno slot di 15 secondi specifico facendo delle considerazioni sulle mappe di ostruzione dallo slot precedente e quello attuale.
-  \item Identificare il satellite che serve il terminale utente comparando le traiettorie estratte con la posizione calcolata dei satelliti visibili usando la misura di distanza Dynamic Time Warping, che è un modo di confrontare due sequenze temporale che non sono perfettamente sincronizzate.
-\end{enumerate}
+L'applicazione per telefono di Starlink non fornisce più informazioni sul satellite a cui si connette il proprio terminale.
+Si cerca di correlare le posizioni conosciute pubblicamente dei satelliti Starlink con le osservazioni delle mappe di ostruzione registrate in ciascun terminale.
+
+\paragraph{Mappe di ostruzione}
+Le mappe di ostruzione sono immagini bidimensionali che segnano la traiettoria di satelliti che hanno recentemente servito il terminale utente.
+Queste immagini sono usate per creare una mappa tridimensionale che viene poi resa disponibile agli utenti, per aiutarli a identificare la qualità della posizione dove è stato disposto il loro terminale, evidenziando ostruzioni fisiche tra il loro terminale e il satellite.
+La figura \ref{fig:obstruction-maps} mostra un esempio di questa mappa dall'applicazione di Starlink nella figura a destra.
+Le figure al centro e a sinistra invece mostrano esempi di queste mappe per slot di 15 secondi usando \verb|starlink-grpc-tools|\cite{sparky8512_starlink-grpc-tools_nodate}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\linewidth]{./res/img/obstruction_maps.png}
+  \caption{Mappa di ostruzione ottenuta dall'app di Starlink (sinistra) e da gRPC \cite{sparky8512_starlink-grpc-tools_nodate}\cite{tanveer_making_2023}}
+  \label{fig:obstruction-maps}
+\end{figure}
+
+Allineando le mappe 2D di \verb|starlink-grpc-tools| con le mappe 3D ottenute dall'applicazione di Starlink e isolando la traiettoria del satellite connesso durante lo slot di 15 secondi si riesce a identificare il satellite che serve il terminale utente.
 
 \subsection{Caratteristiche e preferenze dello scheduler globale}
 Le analisi dei satelliti allocati hanno rivelato diverse preferenze dello scheduler globale. Si possono individuare tre fattori determinanti per la scelta:
@@ -323,26 +360,4 @@ Le analisi dei satelliti allocati hanno rivelato diverse preferenze dello schedu
   \item Data di lancio del satellite: lo scheduler dà priorità ai satelliti più nuovi, infatti la probabilità che un satellite sia selezionato aumenta all'aumentare della sua data di lancio. Questa preferenza potrebbe essere legata al mantenimento di una copertura stabile della costellazione, dato che i satelliti più vecchi stanno raggiungendo la fine del loro ciclo di vita.
   \item Stato di illuminazione: lo scheduler favorisce i satelliti illuminati dal sole, scegliendoli il 72.3\% delle volte quando sono disponibili sia satelliti illuminati che non. I satelliti non illuminati sono selezionati solo quando rappresentano almeno il 35\% dei satelliti disponibili. La scelta sembra comunque guidata dal fatto che il loro angolo di elevazione sia maggiore di quelli illuminati, probabilmente per risparmiare energia \cite{tanveer_making_2023}.
 \end{itemize}
-
-\section{Comparazione della struttura del segnale con sistemi terrestri OFDM}
-La struttura del segnale inviato da Starlink utilizza \ac{OFDM}, una scelta popolare pre i sistemi di comunicazione wireless, come Wi-Fi e LTE.
-Tuttavia, il progetto di starlink differisce dai sistemi usati sulla terra per diversi aspetti chiave, che riflettono le caratteristiche uniche del canale di comunicazione spazio-terra e gli obiettivi di Starlink.
-
-\paragraph{Layout di canale} A differenza dei sistemi terresti dove la larghezza di banda e gli schemi di duplexing variano a livello regionale, Starlink impiega una struttura coerente per il downlink in banda Ku, con otto canali da 240 MHz separati da bande di guardia da 10 MHz.
-Questa ampia banda di guardia consente di attivare più canali contemporaneamente all'interno di una cella di servizio e riduce al minimo le interferenze tra celle adiacenti.
-In questo modo si riduce potenzialmente l'efficienza spettrale, ma si migliora l'affidabilità \cite{humphreys_signal_2023}.
-
-\paragraph{Layout dei frame}
-I frame inviati da starlink, con un periodo di 1/750 secondi, seguono un layout consistenza con un'alta proporzione di sequenze di sincronizzazione; la PSS, SSS, CM1SS e CSS.
-Questa enfasi sulla sincronizzazione, superiore a quella dell'LTE e di altri sistemi terrestri, consente un'accurata equalizzazione del canale e stima dell'effetto Doppler, migliorando potenzialmente l'affidabilita della comunicazione e consentendo un doppio uso per il PNT (Positioning Navigation e Timing) \cite{humphreys_signal_2023}.
-
-\paragraph{Sequenze di sincronizzazione}
-L'utilizzo di sequenze di sincronizzazione multiple per frame, includendo il PSS m-sequence-based e la 4-\ac{QAM}-modulated SSS, lo distingue dai tradizionali sistemi terresti.
-L'utilizzo di queste sequenze di sincronizzazione e la scelta di un numero moderato di sottoportatori semplificano l'elaborazione del segnale e garantiscono una sincronizzazione robusta anche in condizioni difficili \cite{humphreys_signal_2023}.
-
-\paragraph{Efficienza e margini di design}
-La struttura del segnale Starlink prioritizza l'affidabilità.
-L'efficiente occupazione dei simboli OFDM sfrutta il basso ritardo del canale \ac{LEO}-terra.
-Le ampie bande di guardia e l'elevata occupazione dei frame, pur riducendo l'efficienza spettrale, migliorano la mitigazione delle interferenze e la precisione della sincronizzazione.
-La scelta di un numero relativamente basso di sottoportanti (N = 1024) indica un design che prioritizza la robustezza piuttosto che massimizzare il throughput teorico \cite{humphreys_signal_2023}.
 

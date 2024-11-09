@@ -1,0 +1,640 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{branch_education_how_2022}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=4120b4913d53364fd64f5af7e0afd994}{%
+           family={{Branch Education}},
+           familyi={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{4120b4913d53364fd64f5af7e0afd994}
+      \strng{fullhash}{4120b4913d53364fd64f5af7e0afd994}
+      \strng{bibnamehash}{4120b4913d53364fd64f5af7e0afd994}
+      \strng{authorbibnamehash}{4120b4913d53364fd64f5af7e0afd994}
+      \strng{authornamehash}{4120b4913d53364fd64f5af7e0afd994}
+      \strng{authorfullhash}{4120b4913d53364fd64f5af7e0afd994}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{8}
+      \field{title}{How does {Starlink} {Satellite} {Internet} {Work}?}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://www.youtube.com/watch?v=qs2QcycggWU
+      \endverb
+      \verb{url}
+      \verb https://www.youtube.com/watch?v=qs2QcycggWU
+      \endverb
+    \endentry
+    \entry{chaudhry_laser_2021}{article}{}
+      \name{author}{2}{}{%
+        {{hash=341239cca943fdfa94f698e54ab714a8}{%
+           family={Chaudhry},
+           familyi={C\bibinitperiod},
+           given={Aizaz\bibnamedelima U.},
+           giveni={A\bibinitperiod\bibinitdelim U\bibinitperiod}}}%
+        {{hash=af891622078e04921c1de47027a3a88e}{%
+           family={Yanikomeroglu},
+           familyi={Y\bibinitperiod},
+           given={Halim},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{c43be516512a56e99259fa24861e736d}
+      \strng{fullhash}{c43be516512a56e99259fa24861e736d}
+      \strng{bibnamehash}{c43be516512a56e99259fa24861e736d}
+      \strng{authorbibnamehash}{c43be516512a56e99259fa24861e736d}
+      \strng{authornamehash}{c43be516512a56e99259fa24861e736d}
+      \strng{authorfullhash}{c43be516512a56e99259fa24861e736d}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{issn}{1556-6072, 1556-6080}
+      \field{journaltitle}{IEEE Vehicular Technology Magazine}
+      \field{month}{6}
+      \field{number}{2}
+      \field{shorttitle}{Laser {Intersatellite} {Links} in a {Starlink} {Constellation}}
+      \field{title}{Laser {Intersatellite} {Links} in a {Starlink} {Constellation}: {A} {Classification} and {Analysis}}
+      \field{urlday}{3}
+      \field{urlmonth}{10}
+      \field{urlyear}{2024}
+      \field{volume}{16}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \field{pages}{48\bibrangedash 56}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1109/MVT.2021.3063706
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/9393372/
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/9393372/
+      \endverb
+    \endentry
+    \entry{don_k_lefevre_power-efficient_1989}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=170d624cc2cca9e54ac569a3866e1b31}{%
+           family={{Don K. Lefevre}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{170d624cc2cca9e54ac569a3866e1b31}
+      \strng{fullhash}{170d624cc2cca9e54ac569a3866e1b31}
+      \strng{bibnamehash}{170d624cc2cca9e54ac569a3866e1b31}
+      \strng{authorbibnamehash}{170d624cc2cca9e54ac569a3866e1b31}
+      \strng{authornamehash}{170d624cc2cca9e54ac569a3866e1b31}
+      \strng{authorfullhash}{170d624cc2cca9e54ac569a3866e1b31}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A power-efficient {BPSK} communications system for small satellites}
+      \field{year}{1989}
+    \endentry
+    \entry{eric_berger_analyst_2024}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=7bf72131c0c1f53348b61859e9055e1c}{%
+           family={{Eric Berger}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{7bf72131c0c1f53348b61859e9055e1c}
+      \strng{fullhash}{7bf72131c0c1f53348b61859e9055e1c}
+      \strng{bibnamehash}{7bf72131c0c1f53348b61859e9055e1c}
+      \strng{authorbibnamehash}{7bf72131c0c1f53348b61859e9055e1c}
+      \strng{authornamehash}{7bf72131c0c1f53348b61859e9055e1c}
+      \strng{authorfullhash}{7bf72131c0c1f53348b61859e9055e1c}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{5}
+      \field{title}{Analyst on {Starlink}’s rapid rise: “{Nothing} short of mind-blowing”}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://arstechnica.com/space/2024/05/just-5-years-after-its-first-launch-the-starlink-constellation-is-profitable/
+      \endverb
+      \verb{url}
+      \verb https://arstechnica.com/space/2024/05/just-5-years-after-its-first-launch-the-starlink-constellation-is-profitable/
+      \endverb
+    \endentry
+    \entry{geoff_huston_transport_2024}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=c93c86014768e8bded4ff73347710523}{%
+           family={{Geoff HUston}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{c93c86014768e8bded4ff73347710523}
+      \strng{fullhash}{c93c86014768e8bded4ff73347710523}
+      \strng{bibnamehash}{c93c86014768e8bded4ff73347710523}
+      \strng{authorbibnamehash}{c93c86014768e8bded4ff73347710523}
+      \strng{authornamehash}{c93c86014768e8bded4ff73347710523}
+      \strng{authorfullhash}{c93c86014768e8bded4ff73347710523}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{APNIC (Asia Pacific Network Information Centre)}
+      \field{month}{5}
+      \field{title}{A transport protocol's view of {Starlink}}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://blog.apnic.net/2024/05/17/a-transport-protocols-view-of-starlink/
+      \endverb
+      \verb{url}
+      \verb https://blog.apnic.net/2024/05/17/a-transport-protocols-view-of-starlink/
+      \endverb
+    \endentry
+    \entry{humphreys_signal_2023}{article}{}
+      \name{author}{4}{}{%
+        {{hash=89ff3046c79102efc8b41674e610015d}{%
+           family={Humphreys},
+           familyi={H\bibinitperiod},
+           given={Todd\bibnamedelima E.},
+           giveni={T\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=4c3e02a2014b3b13e9559e26fe255dfb}{%
+           family={Iannucci},
+           familyi={I\bibinitperiod},
+           given={Peter\bibnamedelima A.},
+           giveni={P\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=cc2c4f4189bd63ff93320029247406ac}{%
+           family={Komodromos},
+           familyi={K\bibinitperiod},
+           given={Zacharias\bibnamedelima M.},
+           giveni={Z\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=0acc3f6b64b82b4b92fdd53b230da00b}{%
+           family={Graff},
+           familyi={G\bibinitperiod},
+           given={Andrew\bibnamedelima M.},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{1bfb47d30eaaaece0416227914cdc313}
+      \strng{fullhash}{ac4594ceaf5e72b28add215653ee32bf}
+      \strng{bibnamehash}{1bfb47d30eaaaece0416227914cdc313}
+      \strng{authorbibnamehash}{1bfb47d30eaaaece0416227914cdc313}
+      \strng{authornamehash}{1bfb47d30eaaaece0416227914cdc313}
+      \strng{authorfullhash}{ac4594ceaf5e72b28add215653ee32bf}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0018-9251, 1557-9603, 2371-9877}
+      \field{journaltitle}{IEEE Transactions on Aerospace and Electronic Systems}
+      \field{title}{Signal {Structure} of the {Starlink} {Ku}-{Band} {Downlink}}
+      \field{urlday}{3}
+      \field{urlmonth}{10}
+      \field{urlyear}{2024}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \field{pages}{1\bibrangedash 16}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1109/TAES.2023.3268610
+      \endverb
+      \verb{file}
+      \verb Submitted Version:/Users/geko/Zotero/storage/297RNM9I/Humphreys et al. - 2023 - Signal Structure of the Starlink Ku-Band Downlink.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/10107477/
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/10107477/
+      \endverb
+    \endentry
+    \entry{jason_rainbow_starlink_2021}{article}{}
+      \name{author}{1}{}{%
+        {{hash=80a877e472658561063007c0c7c4d02b}{%
+           family={{Jason Rainbow}},
+           familyi={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{80a877e472658561063007c0c7c4d02b}
+      \strng{fullhash}{80a877e472658561063007c0c7c4d02b}
+      \strng{bibnamehash}{80a877e472658561063007c0c7c4d02b}
+      \strng{authorbibnamehash}{80a877e472658561063007c0c7c4d02b}
+      \strng{authornamehash}{80a877e472658561063007c0c7c4d02b}
+      \strng{authorfullhash}{80a877e472658561063007c0c7c4d02b}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{5}
+      \field{title}{Starlink teams up with {Google} for ground infrastructure}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://spacenews.com/starlink-teams-up-with-google-for-ground-infrastructure/
+      \endverb
+      \verb{url}
+      \verb https://spacenews.com/starlink-teams-up-with-google-for-ground-infrastructure/
+      \endverb
+    \endentry
+    \entry{jonathan_mcdowell_starlink_nodate}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=ba81e036104a531589b77999973c1f16}{%
+           family={{Jonathan McDowell}},
+           familyi={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{ba81e036104a531589b77999973c1f16}
+      \strng{fullhash}{ba81e036104a531589b77999973c1f16}
+      \strng{bibnamehash}{ba81e036104a531589b77999973c1f16}
+      \strng{authorbibnamehash}{ba81e036104a531589b77999973c1f16}
+      \strng{authornamehash}{ba81e036104a531589b77999973c1f16}
+      \strng{authorfullhash}{ba81e036104a531589b77999973c1f16}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Starlink {Launch} {Statistics}}
+      \verb{urlraw}
+      \verb https://planet4589.org/space/con/star/stats.html
+      \endverb
+      \verb{url}
+      \verb https://planet4589.org/space/con/star/stats.html
+      \endverb
+    \endentry
+    \entry{jose_del_rosario_nsr_2018}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=ad0077080c4fc0189af9b25967326dcc}{%
+           family={{Jose Del Rosario}},
+           familyi={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{ad0077080c4fc0189af9b25967326dcc}
+      \strng{fullhash}{ad0077080c4fc0189af9b25967326dcc}
+      \strng{bibnamehash}{ad0077080c4fc0189af9b25967326dcc}
+      \strng{authorbibnamehash}{ad0077080c4fc0189af9b25967326dcc}
+      \strng{authornamehash}{ad0077080c4fc0189af9b25967326dcc}
+      \strng{authorfullhash}{ad0077080c4fc0189af9b25967326dcc}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{3}
+      \field{title}{{NSR} {Reports} {China}'s {Ambitious} {Constellation} of 300 {Small} {Satellites} in {LEO}}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb http://www.satnews.com/story.php?number=257303683
+      \endverb
+      \verb{url}
+      \verb http://www.satnews.com/story.php?number=257303683
+      \endverb
+    \endentry
+    \entry{makena_young_low_2022}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=c529b0c9b7750d0bce688324a7a461f0}{%
+           family={{Makena Young}},
+           familyi={M\bibinitperiod}}}%
+        {{hash=dbc2b48c2924800fb96d6d3f18d87a81}{%
+           family={{Akhil Thadani}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{150d13fff30a225cf0259474a161facf}
+      \strng{fullhash}{150d13fff30a225cf0259474a161facf}
+      \strng{bibnamehash}{150d13fff30a225cf0259474a161facf}
+      \strng{authorbibnamehash}{150d13fff30a225cf0259474a161facf}
+      \strng{authornamehash}{150d13fff30a225cf0259474a161facf}
+      \strng{authorfullhash}{150d13fff30a225cf0259474a161facf}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{12}
+      \field{title}{Low {Orbit}, {High} {Stakes} {All}-{In} on the {LEO} {Broadband} {Competition}}
+      \field{year}{2022}
+    \endentry
+    \entry{michael_baylor_block_2018}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=22efa38686fb902332c70f2e52503de2}{%
+           family={{Michael Baylor}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{22efa38686fb902332c70f2e52503de2}
+      \strng{fullhash}{22efa38686fb902332c70f2e52503de2}
+      \strng{bibnamehash}{22efa38686fb902332c70f2e52503de2}
+      \strng{authorbibnamehash}{22efa38686fb902332c70f2e52503de2}
+      \strng{authornamehash}{22efa38686fb902332c70f2e52503de2}
+      \strng{authorfullhash}{22efa38686fb902332c70f2e52503de2}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{5}
+      \field{title}{With {Block} 5, {SpaceX} to increase launch cadence and lower prices}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://www.nasaspaceflight.com/2018/05/block-5-spacex-increase-launch-cadence-lower-prices/
+      \endverb
+      \verb{url}
+      \verb https://www.nasaspaceflight.com/2018/05/block-5-spacex-increase-launch-cadence-lower-prices/
+      \endverb
+    \endentry
+    \entry{mike_puchol_modeling_2022}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=80edc7669a666596877b908d73214389}{%
+           family={{Mike Puchol}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{80edc7669a666596877b908d73214389}
+      \strng{fullhash}{80edc7669a666596877b908d73214389}
+      \strng{bibnamehash}{80edc7669a666596877b908d73214389}
+      \strng{authorbibnamehash}{80edc7669a666596877b908d73214389}
+      \strng{authornamehash}{80edc7669a666596877b908d73214389}
+      \strng{authorfullhash}{80edc7669a666596877b908d73214389}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{10}
+      \field{title}{Modeling {Starlink} capacity}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://mikepuchol.com/modeling-starlink-capacity-843b2387f501
+      \endverb
+      \verb{url}
+      \verb https://mikepuchol.com/modeling-starlink-capacity-843b2387f501
+      \endverb
+    \endentry
+    \entry{rozenvasser_estimation_2023}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=7feb95e1f19db2acd295fdaebaaa947c}{%
+           family={Rozenvasser},
+           familyi={R\bibinitperiod},
+           given={Denys},
+           giveni={D\bibinitperiod}}}%
+        {{hash=edc94691d4b91addca3696d519923a51}{%
+           family={Shulakova},
+           familyi={S\bibinitperiod},
+           given={Kateryna},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \list{publisher}{1}{%
+        {Universitäts- und Landesbibliothek Sachsen-Anhalt}%
+      }
+      \strng{namehash}{15856848375f551d7f42339b437f6874}
+      \strng{fullhash}{15856848375f551d7f42339b437f6874}
+      \strng{bibnamehash}{15856848375f551d7f42339b437f6874}
+      \strng{authorbibnamehash}{15856848375f551d7f42339b437f6874}
+      \strng{authornamehash}{15856848375f551d7f42339b437f6874}
+      \strng{authorfullhash}{15856848375f551d7f42339b437f6874}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper, the capacity of the Starlink global satellite system is considered and evaluated. We will evaluate using the link budget. The code gain due to the addition of error-correcting coding has been added to the calculation of the link budget. At high frequencies, the orbit height is limited to 340 km. Most of the satellites are planned to be located at this altitude. For lower frequencies, higher orbits can be used: 550 km and 1110 km. To date, the spectral efficiency of possible variations of Starlink is limited to 4.5 bits/Hz. At the time of this writing, there are approximately 3300 Starlink satellites in orbit, which theoretically provides a capacity of about 20 Tbps due to the reduced level of modulation and the use of only one polarization. At the end of the first stage of launching satellites into orbit, the system capacity will be 88.5 Tbps over most of the studied frequency band and it will increase as more satellites are launched into low-earth orbit. Working in the future in dual polarizations with 64QAM and with a planned 11 943 satellites, SpaceX will be able to provide Internet access anywhere in the world with high bandwidth and spectral efficiency.}
+      \field{note}{Artwork Size: 1 Online-Ressource (6 Seiten) Pages: 1 Online-Ressource (6 Seiten)}
+      \field{title}{Estimation of the {Starlink} {Global} {Satellite} {System} {Capacity}}
+      \field{urlday}{3}
+      \field{urlmonth}{10}
+      \field{urlyear}{2024}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.25673/101912
+      \endverb
+      \verb{urlraw}
+      \verb https://opendata.uni-halle.de//handle/1981185920/103863
+      \endverb
+      \verb{url}
+      \verb https://opendata.uni-halle.de//handle/1981185920/103863
+      \endverb
+      \keyw{004}
+    \endentry
+    \entry{spacex_astronomy_2020}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=54d3a21ee5b8a15d2004b7350bf67e6d}{%
+           family={{SpaceX}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{54d3a21ee5b8a15d2004b7350bf67e6d}
+      \strng{fullhash}{54d3a21ee5b8a15d2004b7350bf67e6d}
+      \strng{bibnamehash}{54d3a21ee5b8a15d2004b7350bf67e6d}
+      \strng{authorbibnamehash}{54d3a21ee5b8a15d2004b7350bf67e6d}
+      \strng{authornamehash}{54d3a21ee5b8a15d2004b7350bf67e6d}
+      \strng{authorfullhash}{54d3a21ee5b8a15d2004b7350bf67e6d}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{4}
+      \field{title}{Astronomy {Discussion} with {National} {Academy} of {Sciences}}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://web.archive.org/web/20210516183544/https://www.spacex.com/updates/starlink-update-04-28-2020/index.html
+      \endverb
+      \verb{url}
+      \verb https://web.archive.org/web/20210516183544/https://www.spacex.com/updates/starlink-update-04-28-2020/index.html
+      \endverb
+    \endentry
+    \entry{sparky8512_starlink-grpc-tools_nodate}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=5b2a84f6844525671fab1cadd30ffe21}{%
+           family={{sparky8512}},
+           familyi={s\bibinitperiod}}}%
+      }
+      \strng{namehash}{5b2a84f6844525671fab1cadd30ffe21}
+      \strng{fullhash}{5b2a84f6844525671fab1cadd30ffe21}
+      \strng{bibnamehash}{5b2a84f6844525671fab1cadd30ffe21}
+      \strng{authorbibnamehash}{5b2a84f6844525671fab1cadd30ffe21}
+      \strng{authornamehash}{5b2a84f6844525671fab1cadd30ffe21}
+      \strng{authorfullhash}{5b2a84f6844525671fab1cadd30ffe21}
+      \field{sortinit}{s}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Random scripts and other bits for interacting with the SpaceX Starlink user terminal hardware}
+      \field{title}{starlink-grpc-tools}
+      \verb{urlraw}
+      \verb https://github.com/sparky8512/starlink-grpc-tools
+      \endverb
+      \verb{url}
+      \verb https://github.com/sparky8512/starlink-grpc-tools
+      \endverb
+    \endentry
+    \entry{starlink_specifiche_nodate}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=618040e4e54accc8eabc37cb3e784411}{%
+           family={{Starlink}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{618040e4e54accc8eabc37cb3e784411}
+      \strng{fullhash}{618040e4e54accc8eabc37cb3e784411}
+      \strng{bibnamehash}{618040e4e54accc8eabc37cb3e784411}
+      \strng{authorbibnamehash}{618040e4e54accc8eabc37cb3e784411}
+      \strng{authornamehash}{618040e4e54accc8eabc37cb3e784411}
+      \strng{authorfullhash}{618040e4e54accc8eabc37cb3e784411}
+      \field{extraname}{1}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Specifiche}
+      \verb{urlraw}
+      \verb https://www.starlink.com/specifications
+      \endverb
+      \verb{url}
+      \verb https://www.starlink.com/specifications
+      \endverb
+    \endentry
+    \entry{starlink_starlink_nodate}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=618040e4e54accc8eabc37cb3e784411}{%
+           family={{Starlink}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{618040e4e54accc8eabc37cb3e784411}
+      \strng{fullhash}{618040e4e54accc8eabc37cb3e784411}
+      \strng{bibnamehash}{618040e4e54accc8eabc37cb3e784411}
+      \strng{authorbibnamehash}{618040e4e54accc8eabc37cb3e784411}
+      \strng{authornamehash}{618040e4e54accc8eabc37cb3e784411}
+      \strng{authorfullhash}{618040e4e54accc8eabc37cb3e784411}
+      \field{extraname}{2}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Starlink is connecting more than {4M} people with high-speed internet}
+      \verb{urlraw}
+      \verb https://x.com/Starlink/status/1839424733198344617
+      \endverb
+      \verb{url}
+      \verb https://x.com/Starlink/status/1839424733198344617
+      \endverb
+    \endentry
+    \entry{tanveer_making_2023}{misc}{}
+      \name{author}{5}{}{%
+        {{hash=539ff560fa9e2eb868b8b1df2f227963}{%
+           family={Tanveer},
+           familyi={T\bibinitperiod},
+           given={Hammas\bibnamedelima Bin},
+           giveni={H\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=001631fbf8915abd75a576d64358f02e}{%
+           family={Puchol},
+           familyi={P\bibinitperiod},
+           given={Mike},
+           giveni={M\bibinitperiod}}}%
+        {{hash=4f3719f69f6ef2027c5f0872b20ea0cc}{%
+           family={Singh},
+           familyi={S\bibinitperiod},
+           given={Rachee},
+           giveni={R\bibinitperiod}}}%
+        {{hash=8854cd8d7a8aac96065b6aefa7f7013e}{%
+           family={Bianchi},
+           familyi={B\bibinitperiod},
+           given={Antonio},
+           giveni={A\bibinitperiod}}}%
+        {{hash=c9847ccf578d6c669c6dd8826270b66c}{%
+           family={Nithyanand},
+           familyi={N\bibinitperiod},
+           given={Rishab},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{537f62b9f1c019b9546d9b18c8d2324e}
+      \strng{fullhash}{1d911d48fd440adcf5c180479b7f3cc0}
+      \strng{bibnamehash}{537f62b9f1c019b9546d9b18c8d2324e}
+      \strng{authorbibnamehash}{537f62b9f1c019b9546d9b18c8d2324e}
+      \strng{authornamehash}{537f62b9f1c019b9546d9b18c8d2324e}
+      \strng{authorfullhash}{1d911d48fd440adcf5c180479b7f3cc0}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Starlink constellations are currently the largest LEO WAN and have seen considerable interest from the research community. In this paper, we use high-frequency and high-fidelity measurements to uncover evidence of hierarchical traffic controllers in Starlink -- a global controller which allocates satellites to terminals and an on-satellite controller that schedules transmission of user flows. We then devise a novel approach for identifying how satellites are allocated to user terminals. Using data gathered with this approach, we measure the characteristics of the global controller and identify the factors that influence the allocation of satellites to terminals. Finally, we use this data to build a model which approximates Starlink's global scheduler. Our model is able to predict the characteristics of the satellite allocated to a terminal at a specific location and time with reasonably high accuracy and at a rate significantly higher than baseline.}
+      \field{month}{7}
+      \field{note}{arXiv:2307.00402 [cs]}
+      \field{shorttitle}{Making {Sense} of {Constellations}}
+      \field{title}{Making {Sense} of {Constellations}: {Methodologies} for {Understanding} {Starlink}'s {Scheduling} {Algorithms}}
+      \field{urlday}{19}
+      \field{urlmonth}{10}
+      \field{urlyear}{2024}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb Preprint PDF:/Users/geko/Zotero/storage/22JCQSEC/Tanveer et al. - 2023 - Making Sense of Constellations Methodologies for .pdf:application/pdf;Snapshot:/Users/geko/Zotero/storage/7NW4Y2J8/2307.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2307.00402
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2307.00402
+      \endverb
+      \keyw{Computer Science - Networking and Internet Architecture}
+    \endentry
+    \entry{techplayon_spacex_2024}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=a34fd82c2d6b5210c0eb48633f78f3f1}{%
+           family={{Techplayon}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{a34fd82c2d6b5210c0eb48633f78f3f1}
+      \strng{fullhash}{a34fd82c2d6b5210c0eb48633f78f3f1}
+      \strng{bibnamehash}{a34fd82c2d6b5210c0eb48633f78f3f1}
+      \strng{authorbibnamehash}{a34fd82c2d6b5210c0eb48633f78f3f1}
+      \strng{authornamehash}{a34fd82c2d6b5210c0eb48633f78f3f1}
+      \strng{authorfullhash}{a34fd82c2d6b5210c0eb48633f78f3f1}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{1}
+      \field{title}{{SpaceX} - {Starlink} {System} {Architecture} for {Internet}}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://www.techplayon.com/starlink-system-architecture/
+      \endverb
+      \verb{url}
+      \verb https://www.techplayon.com/starlink-system-architecture/
+      \endverb
+    \endentry
+    \entry{thomas_g_roberts_popular_2022}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=ea7b5a6af703fd2fc49d8034ab9a7591}{%
+           family={{Thomas G. Roberts}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{ea7b5a6af703fd2fc49d8034ab9a7591}
+      \strng{fullhash}{ea7b5a6af703fd2fc49d8034ab9a7591}
+      \strng{bibnamehash}{ea7b5a6af703fd2fc49d8034ab9a7591}
+      \strng{authorbibnamehash}{ea7b5a6af703fd2fc49d8034ab9a7591}
+      \strng{authornamehash}{ea7b5a6af703fd2fc49d8034ab9a7591}
+      \strng{authorfullhash}{ea7b5a6af703fd2fc49d8034ab9a7591}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{6}
+      \field{title}{Popular {Orbits} 101}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://aerospace.csis.org/aerospace101/earth-orbit-101/
+      \endverb
+      \verb{url}
+      \verb https://aerospace.csis.org/aerospace101/earth-orbit-101/
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
