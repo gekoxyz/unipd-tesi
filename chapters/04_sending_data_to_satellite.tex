@@ -6,7 +6,7 @@ Per inviare i dati al satellite le informazioni sono codificate nelle onde elett
 Il criterio principale per la scelta dello schema di modulazione è basato sulla massimizzazione del data rate e minimizzazione della potenza trasmessa, della larghezza di banda del canale, dell'errore sul simbolo e resistenza alle interferenze.
 
 Le tecniche di modulazione e demodulazione digitale richiedono una maggiore complessità e un elevato livello di integrazione per trasferire grandi quantità di dati e informazioni.
-Un filtraggio eccessivo per migliorare l'efficienza spettrale può ridurre le interferenze ma aumentare il \ac{BER} a causa della sfocatura dei simboli trasmessi.
+Un filtraggio eccessivo per migliorare l'efficienza spettrale può ridurre le interferenze ma aumentare il \ac{BER} a causa della distorsione dei simboli trasmessi.
 
 Per inviare dati digitali, l'emittente genera un segnale portante a una certa frequenza.
 Per codificare il segnale digitale nella sinusoide sono poi utilizzate le seguenti tecniche:
@@ -174,10 +174,10 @@ La forma generale per la \ac{BPSK} segue l'equazione:
 $$s_n(t) = \sqrt{\frac{2E_b}{T_b}} \cos(2\pi f t + \pi(1-n)) \quad , n = 0,1 $$
 Questo dà due fasi: 0 e $\pi$.
 
+Dove $E_b$ è l'energia per bit, $\frac{N_0}{2}$ la densità spettrale del rumore e $T_b$ il periodo di bit.
+
 Il bit error rate (\ac{BER}) della \ac{BPSK} sotto ipotesi di rumore addittivo Gaussiano bianco (\acs{AWGN}) può essere calcolata come:
 $$P_b = Q(\sqrt{\frac{2 E_b}{N_0}})$$
-
-Dove $E_b$ è l'energia per bit, $\frac{N_0}{2}$ la densità spettrale del rumore e $T_b$ il periodo di bit.
 
 \subsection{Quadrature Phase Shift Keying (QPSK)}
 A volte viene chiamata anche 4-\ac{PSK}, o 4-\ac{QAM} (anche se i concetti alla base sono diversi le onde radio risultanti sono esattamente le stesse).
@@ -244,6 +244,13 @@ Il segnale trasmesso è creato sommando le due onde portanti tra di loro.
 Al ricevitore, le due onde possono essere demodulate coerentemente grazie alla loro ortogonalità.
 Nella \ac{QAM}, i punti della costellazione sono distribuiti in una griglia quadrata con spaziatura orizzontale e verticale uguale.
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{./res/img/qam.png}
+  \caption{Punti della costellazione per una 4-\ac{QAM}, 16-\ac{QAM}, 32-\ac{QAM} e 64-\ac{QAM} sovrapposti}
+  \label{fig:qam-diagram}
+\end{figure}
+
 Utilizzando una costellazione di ordine superiore è possibile trasmettere più bit per simbolo.
 Però, se l'energia media della costellazione è la stessa, i punti devono essere più vicini tra di loro e quindi più suscettibili al rumore.
 Questo risulta in un \ac{BER} più alto, e quindi costellazioni di ordine superiore possono fornire dati in modo meno affidabile rispetto alle costellazioni di ordine inferiore, con un'energia media costante.
@@ -253,7 +260,7 @@ Se sono richieste velocità di trasmissione dati superiori a quelle offerte da 8
 Il fattore che complica le cose è che i punti non sono più tutti alla stessa ampiezza e quindi il demodulatore deve identificare correttamente sia la fase che l'ampiezza, e non solo la fase.
 
 \subsection{Orthogonal Frequency Division Multiplexing (OFDM)}
-Orthogonal Frequency Division Multiplexing (\ac{OFDM}) è un metodo di codificare i dati digitali su più frequenze portanti.
+Orthogonal Frequency Division Multiplexing (\acs{OFDM}) è un metodo di codificare i dati digitali su più frequenze portanti.
 
 \ac{OFDM} prende una sorgente di dati ad alta velocità e la divide in flussi più lenti che sono trasmessi simultaneamente attraverso un numero di sottoportanti ortogonali strettamente distanziate.
 Le sottoportanti essendo ortogonali non interferiscono tra di loro, permettendo così un utilizzo molto efficiente della banda disponibile.
@@ -272,7 +279,7 @@ Questa ampia banda di guardia consente di attivare più canali contemporaneament
 In questo modo si riduce potenzialmente l'efficienza spettrale, ma si migliora l'affidabilità \cite{humphreys_signal_2023}.
 
 \paragraph{Layout dei frame}
-I frame inviati da starlink, con un periodo di 1/750 secondi, seguono un layout consistente con un'alta proporzione di sequenze di sincronizzazione; la PSS, SSS, CM1SS e CSS.
+I frame inviati da Starlink, con un periodo di 1/750 secondi, hanno un layout che contiene un'alto numero di sequenze di sincronizzazione: la PSS, SSS, CM1SS e CSS.
 Questa enfasi sulla sincronizzazione, superiore a quella dell'LTE e di altri sistemi terrestri, consente un'accurata equalizzazione del canale e stima dell'effetto Doppler, migliorando potenzialmente l'affidabilita della comunicazione e consentendo un doppio uso per il PNT (Positioning Navigation e Timing) \cite{humphreys_signal_2023}.
 
 \paragraph{Sequenze di sincronizzazione}
@@ -305,7 +312,7 @@ Misure successive hanno rivelato che il servizio ha una velocità di download me
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.7\linewidth]{./res/img/starlink_performance.png}
+  \includegraphics[width=0.8\linewidth]{./res/img/starlink_performance.png}
   \caption{Velocità della rete misurata da agosto 2023 a marzo 2024}
   \label{fig:starlink-performance}
 \end{figure}
