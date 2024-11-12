@@ -60,7 +60,7 @@
 
 % links
 \RequirePackage{hyperref}
-\RequirePackage{url}
+\RequirePackage{xurl}
 
 % colors
 \RequirePackage{color}
